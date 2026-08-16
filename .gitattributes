@@ -1,0 +1,7 @@
+# Keep the repository canonical in LF regardless of the checkout platform.
+* text=auto eol=lf
+
+*.png binary
+*.jsonl text eol=lf
+*.csv  text eol=lf
+*.sh   text eol=lf

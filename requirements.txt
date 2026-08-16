@@ -1,0 +1,21 @@
+# parmar dependencies.
+#
+# tiktoken is a hard requirement. numpy is soft-required: a pure-Python packing
+# fallback exists and is exercised by the test suite, but it is 50-100x slower and
+# is strongly discouraged above the 64MB tier. Everything else degrades explicitly
+# with a printed reason rather than silently -- run `python resources.py` to see
+# exactly what is present and what will be skipped without it.
+
+tiktoken>=0.7           # hard requirement: BPE tokenizers
+numpy>=1.24             # vectorized LEB128/fixed_u16 packing (pure-Python fallback exists)
+zstandard>=0.21         # zstd in_process_binding transport; without it those cells are skipped
+psutil>=5.9             # peak-RSS measurement; without it peak_rss_mb is recorded as null
+matplotlib>=3.7         # the ratio-vs-corpus-size plot (analyze.py)
+pandas>=2.0             # analysis convenience
+
+# External CLI tools, not installable from PyPI. Missing tools do not change
+# behaviour silently -- the affected matrix cells are skipped with a printed reason.
+#   xz     >= 5.2   (below 5.2 there is no -T multithreading at all)
+#   zstd   >= 1.4   (--long window control)
+#   gzip
+#   bzip2

@@ -1,0 +1,27 @@
+# Corpus tiers -- 5.3GB of PG-19 text. Rebuild with:
+#   python build_corpus.py --tiers "64MB,256MB,1GB,4GB" --out ./corpus/
+# The .meta.json sidecars ARE tracked, so a rebuilt corpus can be verified
+# byte-for-byte against the sha256 that produced the published results.
+corpus/*.txt
+
+# Per-cell archives and decompression scratch
+_work/
+*.parmar
+_probe.txt
+
+# Python
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Transient
+*.bak
+*.tmp

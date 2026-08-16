@@ -1,0 +1,45 @@
+cff-version: 1.2.0
+title: "parmar: a subword-tokenization pre-filter for byte-level entropy coders, and its stress-test harness"
+message: "If you use this software or its results, please cite it."
+type: software
+authors:
+  - family-names: Parmar
+    given-names: Ronak
+    email: ronakparmar2428@gmail.com
+repository-code: "https://github.com/shallowbyte/parmar"
+license: Apache-2.0
+abstract: >-
+  parmar replaces UTF-8 text with BPE token IDs before handing it to a byte-level
+  entropy coder (LZMA2, zstd, gzip, bzip2), on the premise that the ~45% denser
+  token stream lets a fixed-size dictionary window span proportionally more original
+  text. The accompanying harness tests that claim across a 64MB-4GB corpus sweep of
+  PG-19, with mandatory sha256 round-trip verification on every measured
+  configuration. Measured result: the ratio gap over raw bytes widens with corpus
+  size for large-window backends and plateaus once the corpus is well past that
+  window, while remaining flat for gzip's 32 KiB window - identifying window
+  expansion and representation density as two separable effects.
+keywords:
+  - compression
+  - tokenization
+  - byte-pair-encoding
+  - lzma
+  - zstd
+  - benchmark
+
+references:
+  - type: article
+    title: "Compressive Transformers for Long-Range Sequence Modelling"
+    authors:
+      - family-names: Rae
+        given-names: "Jack W."
+      - family-names: Potapenko
+        given-names: Anna
+      - family-names: Jayakumar
+        given-names: "Siddhant M."
+      - family-names: Hillier
+        given-names: Chloe
+      - family-names: Lillicrap
+        given-names: "Timothy P."
+    year: 2019
+    url: "https://arxiv.org/abs/1911.05507"
+    notes: "Source of the PG-19 corpus used for every measurement in this repository."

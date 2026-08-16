@@ -1,0 +1,13 @@
+{
+  "tier": "64MB",
+  "target_bytes": 67108864,
+  "bytes": 67217635,
+  "documents": 173,
+  "sha256": "ebc84b4c6c085759c1bb65cbb8f6e14221b7f512dac4a29fb3e2d06a1a54b21c",
+  "shuffle_seed": 20240517,
+  "source": "deepmind/pg19 train split via https://storage.googleapis.com/deepmind-gutenberg/",
+  "file_list": "https://huggingface.co/datasets/deepmind/pg19/raw/main/data/train_files.txt",
+  "doc_separator": "\n\n",
+  "built_utc": "2026-08-16T05:44:24Z",
+  "note": "cut at a document boundary past the target, so this file is a complete standalone corpus, not a truncated prefix of a larger tier"
+}
