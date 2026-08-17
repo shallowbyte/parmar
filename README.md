@@ -1,27 +1,47 @@
-<div align="center">
-
 <pre>
-0000000     000     0000000   00     00     000     0000000
-0000000    00 00    0000000   000   000    00 00    0000000
-00   00   00   00   00   00   0000 0000   00   00   00   00
-00   00   00   00   00   00   00 000 00   00   00   00   00
-0000000   0000000   0000000   00  0  00   0000000   0000000
-0000000   0000000   00000     00     00   0000000   00000
-00        00   00   00 00     00     00   00   00   00 00
-00        00   00   00  000   00     00   00   00   00  000
- 11        11   11   11  111   11     11   11   11   11  111
+███████    ███    ███████  ██     ██    ███    ███████
+███████▓  ██ ██   ███████▓ ███   ███▓  ██ ██   ███████▓
+██   ██▓ ██   ██  ██   ██▓ ████ ████▓ ██   ██  ██   ██▓
+██   ██▓ ██   ██▓ ██   ██▓ ██▓███▓██▓ ██   ██▓ ██   ██▓
+███████▓ ███████▓ ███████▓ ██▓ █▓▓██▓ ███████▓ ███████▓
+███████▓ ███████▓ █████▓▓▓ ██▓  ▓ ██▓ ███████▓ █████▓▓▓
+██▓▓▓▓▓▓ ██▓▓▓██▓ ██▓██▓   ██▓    ██▓ ██▓▓▓██▓ ██▓██▓
+██▓      ██▓  ██▓ ██▓ ███  ██▓    ██▓ ██▓  ██▓ ██▓ ███
+ ▓▓       ▓▓   ▓▓  ▓▓  ▓▓▓  ▓▓     ▓▓  ▓▓   ▓▓  ▓▓  ▓▓▓
 </pre>
+
+<div align="center">
 
   <a href="LICENSE"><img alt="LICENSE" src="https://img.shields.io/badge/license-Apache_2.0-4a3aa7?style=for-the-badge"></a>
   <a href="report/summary.md"><img alt="CELLS" src="https://img.shields.io/badge/cells_verified-452%2F452-1baf7a?style=for-the-badge"></a>
   <a href="results/README.md"><img alt="FAILURES" src="https://img.shields.io/badge/failures-0-1baf7a?style=for-the-badge"></a>
   <a href="corpus/README.md"><img alt="CORPUS" src="https://img.shields.io/badge/corpus-PG--19_up_to_4GB-eb6834?style=for-the-badge"></a>
+  <a href="https://deepwiki.com/shallowbyte/parmar"><img alt="DOCS" src="https://img.shields.io/badge/docs-DeepWiki-eda100?style=for-the-badge&logo=readthedocs&logoColor=white"></a>
   <a href="https://www.python.org/"><img alt="PYTHON" src="https://img.shields.io/badge/python-3.11%2B-2a78d6?style=for-the-badge&logo=python&logoColor=white"></a>
 
 </div>
 
+<p align="center">
+  <b>English</b> ·
+  <a href="docs/i18n/README.zh-CN.md">简体中文</a> ·
+  <a href="docs/i18n/README.hi.md">हिन्दी</a> ·
+  <a href="docs/i18n/README.es.md">Español</a> ·
+  <a href="docs/i18n/README.ar.md">العربية</a> ·
+  <a href="docs/i18n/README.pt-BR.md">Português</a> ·
+  <a href="docs/i18n/README.ru.md">Русский</a> ·
+  <a href="docs/i18n/README.ja.md">日本語</a> ·
+  <a href="docs/i18n/README.de.md">Deutsch</a> ·
+  <a href="docs/i18n/README.fr.md">Français</a> ·
+  <a href="docs/i18n/README.ko.md">한국어</a>
+</p>
+
 A subword-tokenization pre-filter for byte-level entropy coders, plus the
 stress-test harness built to find out whether it actually works.
+
+> **Code walkthrough:** an auto-generated architectural tour of this repository
+> is available at **[deepwiki.com/shallowbyte/parmar](https://deepwiki.com/shallowbyte/parmar)**.
+> This README is the normative source for the *results*; DeepWiki is the easier
+> way to navigate the *code*.
 
 **Short answer: it works, for a narrower reason than the hypothesis claimed.**
 Pre-tokenizing text buys **+7% to +9.6%** compression ratio over raw bytes at LZMA2's
@@ -30,8 +50,13 @@ once the corpus is well past the compressor's dictionary window, rather than gro
 without bound. On `gzip`'s 32 KiB window the advantage is large (+15%) and completely
 flat, which separates the two effects that were previously conflated: *representation
 density* and *window expansion*. On `bzip2` pre-tokenization is a consistent **loss**
-(−3.9%). Numbers and method below; every one of them comes from a configuration whose
-decompression was actually executed and whose sha256 actually matched.
+(−3.9%).
+
+**And it is not a size-for-speed trade:** on 5 of the 7 backends parmar is smaller
+*and* **faster** than raw bytes at the same time, at every tier — the compressor is
+handed ~45% fewer bytes, and that saves more time than tokenizing costs. Numbers and
+method below; every one of them comes from a configuration whose decompression was
+actually executed and whose sha256 actually matched.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="report/ratio_gap_vs_corpus_size_dark.png">
@@ -398,6 +423,100 @@ without a ratio penalty, that is a concrete reason to prefer zstd over xz here.
 </picture>
 
 The frontier spans **3.18x at 79 MB/s** (raw + `zstd_12`) to **4.09x at 7.9 MB/s** (`p50k_base+fixed_u16` + `lzma_tuned_lp1pb1`) — a 29% size difference for a 10x speed difference. `p50k_base+fixed_u16` appears at nearly every point on it, which is the practical takeaway: the packing choice is close to free, and the backend is where you trade.
+
+### The result that matters most in practice
+
+Pre-tokenizing is not a size-for-speed trade. On **5 of the 7 backends, at every
+tier, parmar is smaller *and* faster than raw bytes simultaneously** — because the
+compressor is handed ~45% fewer bytes, and the time saved compressing them exceeds
+the time spent tokenizing.
+
+| backend | raw | best parmar | verdict |
+|---|---|---|---|
+| `lzma_extreme` @4GB | 3.7221x @ 11.6 MB/s | **4.0454x @ 16.9 MB/s** | smaller **and** 1.5x faster |
+| `lzma_fast` @64MB | 3.6114x @ 0.45 MB/s | **3.9061x @ 2.93 MB/s** | smaller **and** 6.5x faster |
+| `gzip_9` @1GB | 2.6928x @ 18.5 MB/s | **2.9413x @ 23.4 MB/s** | smaller **and** faster |
+| `zstd_19` @4GB | 3.5714x @ 14.4 MB/s | **3.6765x @ 23.3 MB/s** | smaller **and** 1.6x faster |
+| `zstd_22_long` @1GB | 3.7817x @ 1.6 MB/s | **3.9513x @ 2.3 MB/s** | smaller **and** faster |
+| `zstd_12` @1GB | 3.1825x @ 79.0 MB/s | 3.3905x @ 39.0 MB/s | smaller but **2x slower** |
+| `bz2_9` @1GB | **3.5659x** @ 19.8 MB/s | 3.4571x @ 17.2 MB/s | **raw wins outright** |
+
+The two exceptions are informative. `zstd_12` is fast enough that tokenization becomes
+the bottleneck, so above 256MB parmar buys size at a real speed cost. `bz2_9` loses on
+both — bzip2's Burrows-Wheeler transform exploits byte-level text structure that
+tokenization destroys.
+
+## Use cases
+
+Grounded in the measurements above, not in speculation:
+
+- **Archiving large prose corpora.** The strongest case: with `lzma` or high-level
+  `zstd` you get both a smaller archive and a shorter compression run.
+- **Anything stuck on gzip/deflate.** `gzip_9` gains **+15%** and, unusually, gains it
+  at *every* corpus size — because gzip's 32 KiB window is always saturated, so the
+  benefit is pure representation density with no scale threshold. If you cannot change
+  the compressor but can change what you feed it, this is the clearest win here, and it
+  works on small inputs too.
+- **Storing text that is going to be tokenized anyway** — LLM training shards, eval
+  sets, retrieval corpora. The tokens *are* the payload, so a reader skips
+  re-tokenization entirely on the way back out. That is a systems win on top of ratio.
+- **Cold storage where read frequency is low.** Decompression carries a detokenization
+  cost that compression does not, so the asymmetry favours write-once/read-rarely.
+
+## Scope and non-goals
+
+- **Not a general-purpose archiver.** An archive is not self-contained: it records the
+  tokenizer *name*, not its vocabulary, so decompression needs the exact same
+  `tiktoken` encoding available. Treat archives as coupled to their tokenizer version.
+- **Not a secure format.** No encryption and no authentication. The footer sha256 is an
+  integrity check against corruption, stored in the clear beside the data it describes
+  — it is not a MAC. See [`SECURITY.md`](SECURITY.md).
+- **Not validated on non-prose.** Every number here is English prose (PG-19). Code,
+  JSON, logs and markup are untested and could behave differently in either direction.
+- **Not a speed play at the fast end.** If you are already on `zstd -12` or below for
+  throughput, pre-tokenizing costs you speed above 256MB.
+- **Not for bzip2.** Measured as a consistent loss; do not use them together.
+
+## Limitations
+
+Honest list, all of them measured or documented rather than suspected:
+
+- **The chunk-boundary rule needs an ASCII alphanumeric followed by whitespace.**
+  Unbroken digit runs, pure-punctuation blobs and unspaced scripts such as CJK have no
+  safe cut point. The chunker falls back to a merely UTF-8-safe cut and **counts it**
+  in `unsafe_boundary_cuts`, carried into every results row. On PG-19 that count is
+  zero at every tier and chunk size — on a Chinese or Japanese corpus it would not be.
+- **`fixed_u16` — the best-performing packing — only works for vocabularies ≤ 65,536**,
+  i.e. `r50k_base` and `p50k_base`. The modern large-vocabulary tokenizers cannot use
+  it and are stuck with LEB128, which is where most of the ratio win came from.
+- **Pre-tokenizing reduces multithreaded parallelism.** Fewer bytes fed to `xz` means
+  fewer blocks; at 1GB that costs ~34% of the available `-T` speedup.
+- **All timings are from one machine** (20 cores, Windows). Ratios are
+  platform-independent; throughput and thread-scaling numbers are not.
+- **The plateau bound is only established up to 4GB.** `zstd_22_long` was still rising
+  at the top tier, so its ceiling is unmeasured.
+
+## Future work
+
+Ordered by how much each would actually teach:
+
+1. **Sweep dictionary size instead of corpus size.** The plateau tracks the *window*,
+   not the corpus, so varying `dict_size` at a fixed 1GB corpus would isolate the
+   mechanism far more cheaply than the corpus ladder did — and would predict the
+   plateau point for any backend rather than observing it per-backend.
+2. **Frequency-remap token IDs before packing.** LEB128 spends 3 bytes on any ID above
+   16,383, and `o200k_base` puts most of its vocabulary there. Renumbering IDs by
+   corpus frequency would move common tokens into the 1–2 byte range. This is the most
+   promising untested idea for closing the gap between LEB128 and `fixed_u16` on
+   large-vocabulary tokenizers.
+3. **Non-prose corpora**, source code first — it is highly repetitive at the token
+   level and its pretokenization behaviour is very different from prose.
+4. **A cut rule for unspaced scripts**, which would make the technique usable on CJK
+   text at all.
+5. **An 8GB+ tier**, purely to find where `zstd_22_long`'s 2 GiB window plateaus.
+6. **SentencePiece / Gemma tokenizers**, deliberately excluded this round because they
+   require a gated model download and would break the run-anywhere property.
+
 
 ## Corpus
 
