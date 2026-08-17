@@ -1,12 +1,11 @@
 <div align="center">
 
 <pre>
-█████    ████   █████   █    █   ████   █████ 
-█    █  █    █  █    █  ██  ██  █    █  █    █
-█    █  █    █  █    █  █ ██ █  █    █  █    █
-█████   ██████  █████   █    █  ██████  █████ 
-█       █    █  █   █   █    █  █    █  █   █ 
-█       █    █  █    █  █    █  █    █  █    █
+██████   █████  ██████  ███    ███  █████  ██████  
+██   ██ ██   ██ ██   ██ ████  ████ ██   ██ ██   ██ 
+██████  ███████ ██████  ██ ████ ██ ███████ ██████  
+██      ██   ██ ██   ██ ██  ██  ██ ██   ██ ██   ██ 
+██      ██   ██ ██   ██ ██      ██ ██   ██ ██   ██ 
 </pre>
 
   <a href="../../LICENSE"><img alt="LICENSE" src="https://img.shields.io/badge/license-Apache_2.0-4a3aa7?style=for-the-badge"></a>
@@ -14,6 +13,7 @@
   <a href="../../results/README.md"><img alt="FAILURES" src="https://img.shields.io/badge/failures-0-1baf7a?style=for-the-badge"></a>
   <a href="../../corpus/README.md"><img alt="CORPUS" src="https://img.shields.io/badge/corpus-PG--19_up_to_4GB-eb6834?style=for-the-badge"></a>
   <a href="https://deepwiki.com/shallowbyte/parmar"><img alt="DOCS" src="https://img.shields.io/badge/docs-DeepWiki-eda100?style=for-the-badge&logo=readthedocs&logoColor=white"></a>
+  <a href="https://www.python.org/"><img alt="PYTHON" src="https://img.shields.io/badge/python-3.11%2B-2a78d6?style=for-the-badge&logo=python&logoColor=white"></a>
 
 </div>
 

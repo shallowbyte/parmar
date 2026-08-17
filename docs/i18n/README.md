@@ -51,7 +51,16 @@ When you change the English README:
 2. If you changed **numbers**, update every translation — a wrong number is worse than
    an untranslated one.
 3. If you only changed the header, badges or ASCII art, those blocks are duplicated
-   verbatim across all files and can be patched mechanically.
+   verbatim across all files and are patched mechanically:
+
+   ```bash
+   python docs/i18n/sync_boilerplate.py           # rewrite them in place
+   python docs/i18n/sync_boilerplate.py --check   # exit non-zero if any are stale
+   ```
+
+   The script touches only the title block, the badge row, the language nav bar and
+   the image paths inside the figures. It never edits prose — including figure `alt`
+   text, which *is* translated.
 
 Contributions from native speakers are very welcome, especially corrections to the
 technical vocabulary — the translations were produced by a single non-specialist pass

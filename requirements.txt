@@ -19,3 +19,7 @@ pandas>=2.0             # analysis convenience
 #   zstd   >= 1.4   (--long window control)
 #   gzip
 #   bzip2
+
+# dev-only: regenerating the ASCII title in the README header
+#   python -c "import pyfiglet; print(pyfiglet.figlet_format('PARMAR', font='ansi_regular'))"
+pyfiglet>=1.0        # optional, dev only -- README title art
