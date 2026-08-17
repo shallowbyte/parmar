@@ -1,6 +1,6 @@
 # parmar sweep analysis
 
-333 result rows, **333 round-trip verified**, 0 not verified.  Tiers present: 64MB, 256MB, 1GB, 4GB
+452 result rows, **452 round-trip verified**, 0 not verified.  Tiers present: 64MB, 256MB, 1GB, 4GB
 
 
 ## Tier 64MB
@@ -40,33 +40,33 @@
 
 ### Best compression ratio (archival)
 
-| ratio  | bytes      | pipeline            | backend           | transport      | threads | MB/s |
-|--------|------------|---------------------|-------------------|----------------|---------|------|
-| 4.0488 | 66,316,481 | p50k_base+fixed_u16 | lzma_tuned_lp1pb1 | subprocess_cli | 20      | 2.49 |
-| 4.0344 | 66,553,385 | r50k_base+fixed_u16 | lzma_tuned_lp1pb1 | subprocess_cli | 20      | 2.56 |
-| 4.0295 | 66,635,504 | p50k_base+fixed_u16 | lzma_extreme      | subprocess_cli | 20      | 2.50 |
-| 4.0152 | 66,872,072 | r50k_base+fixed_u16 | lzma_extreme      | subprocess_cli | 20      | 2.53 |
-| 3.9684 | 67,661,245 | p50k_base+fixed_u16 | lzma_fast         | subprocess_cli | 20      | 5.29 |
-| 3.9534 | 67,917,689 | r50k_base+fixed_u16 | lzma_fast         | subprocess_cli | 20      | 5.37 |
-| 3.8817 | 69,172,366 | p50k_base+fixed_u16 | zstd_22_long      | subprocess_cli | 20      | 2.31 |
-| 3.8697 | 69,386,459 | r50k_base+fixed_u16 | zstd_22_long      | subprocess_cli | 20      | 2.29 |
-| 3.8394 | 69,934,786 | cl100k_base+leb128  | lzma_extreme      | subprocess_cli | 20      | 2.14 |
-| 3.8172 | 70,341,561 | o200k_base+leb128   | lzma_extreme      | subprocess_cli | 1       | 2.14 |
+| ratio  | bytes      | pipeline            | backend           | transport          | threads | MB/s |
+|--------|------------|---------------------|-------------------|--------------------|---------|------|
+| 4.0488 | 66,316,481 | p50k_base+fixed_u16 | lzma_tuned_lp1pb1 | subprocess_cli     | 20      | 2.49 |
+| 4.0434 | 66,405,748 | r50k_base+fixed_u16 | lzma_extreme      | subprocess_cli     | 1       | 1.85 |
+| 4.0434 | 66,405,752 | r50k_base+fixed_u16 | lzma_extreme      | in_process_binding | 20      | 2.06 |
+| 4.0344 | 66,553,385 | r50k_base+fixed_u16 | lzma_tuned_lp1pb1 | subprocess_cli     | 20      | 2.56 |
+| 4.0295 | 66,635,504 | p50k_base+fixed_u16 | lzma_extreme      | subprocess_cli     | 20      | 2.50 |
+| 4.0152 | 66,872,072 | r50k_base+fixed_u16 | lzma_extreme      | subprocess_cli     | 20      | 2.53 |
+| 4.0152 | 66,872,072 | r50k_base+fixed_u16 | lzma_extreme      | subprocess_cli     | 4       | 2.25 |
+| 4.0152 | 66,872,072 | r50k_base+fixed_u16 | lzma_extreme      | subprocess_cli     | 20      | 2.33 |
+| 4.0152 | 66,872,072 | r50k_base+fixed_u16 | lzma_extreme      | subprocess_cli     | 20      | 2.34 |
+| 4.0152 | 66,872,072 | r50k_base+fixed_u16 | lzma_extreme      | subprocess_cli     | 20      | 2.33 |
 
 ### Best throughput (interactive)
 
 | MB/s  | ratio  | pipeline            | backend | transport      | threads | peak_rss_mb |
 |-------|--------|---------------------|---------|----------------|---------|-------------|
 | 71.54 | 3.1627 | raw                 | zstd_12 | subprocess_cli | 20      | 756         |
+| 68.32 | 3.1627 | raw                 | zstd_12 | subprocess_cli | 20      | 755         |
+| 66.81 | 3.1627 | raw                 | zstd_12 | subprocess_cli | 20      | 755         |
+| 66.34 | 3.1627 | raw                 | zstd_12 | subprocess_cli | 20      | 755         |
+| 65.82 | 3.1627 | raw                 | zstd_12 | subprocess_cli | 20      | 755         |
+| 51.12 | 3.1627 | raw                 | zstd_12 | subprocess_cli | 4       | 490         |
 | 34.59 | 3.3650 | p50k_base+fixed_u16 | zstd_12 | subprocess_cli | 20      | 3979        |
 | 34.23 | 3.3604 | r50k_base+fixed_u16 | zstd_12 | subprocess_cli | 20      | 4060        |
-| 30.58 | 3.3556 | o200k_base+leb128   | zstd_12 | subprocess_cli | 20      | 5847        |
-| 27.21 | 3.3322 | p50k_base+leb128    | zstd_12 | subprocess_cli | 20      | 6229        |
-| 26.00 | 3.3242 | r50k_base+leb128    | zstd_12 | subprocess_cli | 20      | 6322        |
-| 25.31 | 3.3765 | cl100k_base+leb128  | zstd_12 | subprocess_cli | 20      | 5971        |
-| 22.80 | 2.9257 | o200k_base+leb128   | gzip_9  | subprocess_cli | 20      | 5905        |
-| 20.27 | 2.9648 | cl100k_base+leb128  | gzip_9  | subprocess_cli | 20      | 6079        |
-| 19.50 | 3.5520 | raw                 | bz2_9   | subprocess_cli | 20      | 54          |
+| 33.15 | 3.3604 | r50k_base+fixed_u16 | zstd_12 | subprocess_cli | 20      | 4953        |
+| 32.78 | 3.3604 | r50k_base+fixed_u16 | zstd_12 | subprocess_cli | 20      | 2153        |
 
 
 ## Tier 1GB
@@ -108,31 +108,31 @@
 
 | ratio  | bytes         | pipeline            | backend           | transport      | threads | MB/s  |
 |--------|---------------|---------------------|-------------------|----------------|---------|-------|
+| 4.0984 | 1,048,037,140 | r50k_base+fixed_u16 | lzma_extreme      | subprocess_cli | 1       | 1.79  |
 | 4.0785 | 1,053,147,357 | p50k_base+fixed_u16 | lzma_tuned_lp1pb1 | subprocess_cli | 20      | 16.26 |
 | 4.0634 | 1,057,067,001 | r50k_base+fixed_u16 | lzma_tuned_lp1pb1 | subprocess_cli | 20      | 17.44 |
 | 4.0602 | 1,057,885,412 | p50k_base+fixed_u16 | lzma_extreme      | subprocess_cli | 20      | 15.82 |
 | 4.0454 | 1,061,753,144 | r50k_base+fixed_u16 | lzma_extreme      | subprocess_cli | 20      | 16.88 |
+| 4.0454 | 1,061,753,144 | r50k_base+fixed_u16 | lzma_extreme      | subprocess_cli | 4       | 7.09  |
+| 4.0284 | 1,066,252,857 | r50k_base+fixed_u16 | lzma_fast         | subprocess_cli | 1       | 1.97  |
 | 4.0001 | 1,073,779,078 | p50k_base+fixed_u16 | zstd_22_long      | subprocess_cli | 20      | 5.60  |
 | 3.9928 | 1,075,755,361 | p50k_base+fixed_u16 | lzma_fast         | subprocess_cli | 20      | 19.81 |
 | 3.9841 | 1,078,089,799 | r50k_base+fixed_u16 | zstd_22_long      | subprocess_cli | 20      | 6.20  |
-| 3.9738 | 1,080,894,025 | r50k_base+fixed_u16 | lzma_fast         | subprocess_cli | 20      | 22.17 |
-| 3.9297 | 1,093,010,184 | cl100k_base+leb128  | zstd_22_long      | subprocess_cli | 20      | 5.63  |
-| 3.9113 | 1,098,171,010 | o200k_base+leb128   | zstd_22_long      | subprocess_cli | 20      | 5.72  |
 
 ### Best throughput (interactive)
 
-| MB/s  | ratio  | pipeline            | backend   | transport      | threads | peak_rss_mb |
-|-------|--------|---------------------|-----------|----------------|---------|-------------|
-| 76.19 | 3.1740 | raw                 | zstd_12   | subprocess_cli | 20      | 1842        |
-| 39.83 | 3.3722 | r50k_base+fixed_u16 | zstd_12   | subprocess_cli | 20      | 5104        |
-| 38.48 | 3.3814 | p50k_base+fixed_u16 | zstd_12   | subprocess_cli | 20      | 5110        |
-| 36.50 | 3.3700 | o200k_base+leb128   | zstd_12   | subprocess_cli | 20      | 7119        |
-| 30.78 | 3.3898 | cl100k_base+leb128  | zstd_12   | subprocess_cli | 20      | 7128        |
-| 29.96 | 3.3371 | r50k_base+leb128    | zstd_12   | subprocess_cli | 20      | 7476        |
-| 28.52 | 3.3466 | p50k_base+leb128    | zstd_12   | subprocess_cli | 20      | 7365        |
-| 23.45 | 2.9369 | o200k_base+leb128   | gzip_9    | subprocess_cli | 20      | 6062        |
-| 23.31 | 3.6765 | o200k_base+leb128   | zstd_19   | subprocess_cli | 20      | 9813        |
-| 22.78 | 3.7594 | o200k_base+leb128   | lzma_fast | subprocess_cli | 20      | 15362       |
+| MB/s  | ratio  | pipeline            | backend | transport      | threads | peak_rss_mb |
+|-------|--------|---------------------|---------|----------------|---------|-------------|
+| 76.19 | 3.1740 | raw                 | zstd_12 | subprocess_cli | 20      | 1842        |
+| 52.16 | 3.1740 | raw                 | zstd_12 | subprocess_cli | 4       | 502         |
+| 39.83 | 3.3722 | r50k_base+fixed_u16 | zstd_12 | subprocess_cli | 20      | 5104        |
+| 38.48 | 3.3814 | p50k_base+fixed_u16 | zstd_12 | subprocess_cli | 20      | 5110        |
+| 36.50 | 3.3700 | o200k_base+leb128   | zstd_12 | subprocess_cli | 20      | 7119        |
+| 31.00 | 3.3700 | o200k_base+leb128   | zstd_12 | subprocess_cli | 4       | 6504        |
+| 30.78 | 3.3898 | cl100k_base+leb128  | zstd_12 | subprocess_cli | 20      | 7128        |
+| 29.96 | 3.3371 | r50k_base+leb128    | zstd_12 | subprocess_cli | 20      | 7476        |
+| 28.52 | 3.3466 | p50k_base+leb128    | zstd_12 | subprocess_cli | 20      | 7365        |
+| 26.83 | 3.3722 | r50k_base+fixed_u16 | zstd_12 | subprocess_cli | 4       | 4586        |
 
 
 ## Section 7 part 4 -- the four questions
@@ -211,6 +211,13 @@ Tokenize time only (percentages are speedup vs `library_batch`; positive = faste
 | tier  | tokenizer  | backend      | threads | chunk | library_batch_s | manual_pool   | process_pool  |
 |-------|------------|--------------|---------|-------|-----------------|---------------|---------------|
 | 256MB | o200k_base | lzma_extreme | 20      | 2MB   | 2.40            | 2.51 (-4.7%)  | 2.59 (-7.9%)  |
+| 256MB | o200k_base | lzma_fast    | 20      | 2MB   | 2.51            | 2.43 (+3.2%)  | 2.40 (+4.4%)  |
+| 256MB | o200k_base | zstd_12      | 20      | 2MB   | 2.46            | 2.30 (+6.7%)  | 2.46 (-0.0%)  |
+| 256MB | o200k_base | zstd_19      | 20      | 2MB   | 2.33            | 2.45 (-4.9%)  | 2.45 (-5.0%)  |
+| 256MB | r50k_base  | lzma_extreme | 20      | 2MB   | 3.40            | 3.35 (+1.5%)  | 2.82 (+16.9%) |
+| 256MB | r50k_base  | lzma_fast    | 20      | 2MB   | 3.38            | 3.48 (-2.9%)  | 2.99 (+11.5%) |
+| 256MB | r50k_base  | zstd_12      | 20      | 2MB   | 3.36            | 3.55 (-5.7%)  | 2.85 (+15.2%) |
+| 256MB | r50k_base  | zstd_19      | 20      | 2MB   | 3.33            | 3.46 (-3.9%)  | 3.07 (+7.9%)  |
 | 64MB  | o200k_base | lzma_extreme | 20      | 2MB   | 0.71            | 0.72 (-1.7%)  | 0.79 (-11.3%) |
 | 64MB  | o200k_base | lzma_fast    | 20      | 2MB   | 1.19            | 0.76 (+36.4%) | 0.80 (+33.3%) |
 | 64MB  | o200k_base | zstd_12      | 20      | 2MB   | 1.24            | 0.69 (+44.5%) | 0.70 (+43.6%) |
@@ -220,7 +227,7 @@ Tokenize time only (percentages are speedup vs `library_batch`; positive = faste
 | 64MB  | r50k_base  | zstd_12      | 20      | 2MB   | 0.87            | 0.92 (-5.3%)  | 0.84 (+3.8%)  |
 | 64MB  | r50k_base  | zstd_19      | 20      | 2MB   | 0.89            | 0.95 (-6.8%)  | 0.85 (+5.3%)  |
 
-**`manual_pool` beat `library_batch` in 5/9 comparable configurations.**
+**`manual_pool` beat `library_batch` in 8/16 comparable configurations.**
 
 
 ### Q4. What is the real `xz -T` speedup curve, and where does the dictionary-size floor kick in?
@@ -237,7 +244,18 @@ Speedup is wall-clock relative to `-T1`; the percentage beside it is the **ratio
 | 1GB   | o200k_base | lzma_fast    | ?         | ?      | 451.9  | 3.8179   | 3.84x (-1.27%) | 5.86x (-1.27%)  |
 | 1GB   | r50k_base  | lzma_extreme | 579MB     | 5      | 639.1  | 4.1015   | 3.61x (-1.30%) | 4.97x (-1.30%)  |
 | 1GB   | r50k_base  | lzma_fast    | 579MB     | 9      | 574.2  | 4.0369   | 3.26x (-1.38%) | 7.94x (-1.38%)  |
-| 256MB | o200k_base | lzma_extreme | ?         | ?      | 119.6  | 3.8172   | 1.09x (-0.11%) | 1.09x (-0.11%)  |
+| 256MB | raw        | lzma_extreme | 256MB     | 2      | 244.7  | 3.7359   | 2.06x (-0.65%) | 2.06x (-0.65%)  |
+| 256MB | raw        | lzma_fast    | 256MB     | 4      | 202.8  | 3.6837   | 3.61x (-1.05%) | 3.61x (-1.05%)  |
+| 256MB | o200k_base | lzma_extreme | ?         | ?      | 119.6  | 3.8172   | 1.09x (-0.11%) | 1.03x (-0.11%)  |
+| 256MB | o200k_base | lzma_fast    | 129MB     | 2      | 116.0  | 3.7760   | 1.99x (-0.78%) | 2.22x (-0.78%)  |
+| 256MB | r50k_base  | lzma_extreme | 145MB     | 1      | 138.4  | 4.0434   | 1.22x (-0.70%) | 1.22x (-0.70%)  |
+| 256MB | r50k_base  | lzma_fast    | 145MB     | 2      | 127.1  | 3.9968   | 2.25x (-1.09%) | 2.43x (-1.09%)  |
+| 4GB   | raw        | lzma_extreme | 4096MB    | 32     | 3835.6 | 3.7701   | 3.85x (-1.27%) | 10.82x (-1.27%) |
+| 4GB   | raw        | lzma_fast    | 4096MB    | 64     | 3270.7 | 3.7064   | 3.81x (-1.36%) | 11.48x (-1.36%) |
+| 4GB   | o200k_base | lzma_extreme | ?         | ?      | 2387.0 | 3.8791   | 4.62x (-1.32%) | 9.71x (-1.32%)  |
+| 4GB   | o200k_base | lzma_fast    | 2058MB    | 32     | 1820.7 | 3.8123   | 4.06x (-1.39%) | 10.12x (-1.39%) |
+| 4GB   | r50k_base  | lzma_extreme | 2315MB    | 18     | 2288.5 | 4.0984   | 3.96x (-1.29%) | 9.43x (-1.29%)  |
+| 4GB   | r50k_base  | lzma_fast    | 2315MB    | 36     | 2085.0 | 4.0284   | 4.31x (-1.35%) | 11.28x (-1.35%) |
 | 64MB  | raw        | lzma_extreme | 64MB      | 1      | 50.0   | 3.6318   | 1.01x (-0.00%) | 1.01x (-0.00%)  |
 | 64MB  | raw        | lzma_fast    | 64MB      | 1      | 47.8   | 3.6123   | 0.99x (-0.02%) | 1.01x (-0.02%)  |
 | 64MB  | o200k_base | lzma_extreme | ?         | ?      | 23.0   | 3.6681   | 1.08x (-0.00%) | 1.10x (-0.00%)  |

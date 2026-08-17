@@ -1,0 +1,1271 @@
+
+################################################################
+# 64MB / full profile / full matrix
+# 2026-08-16 12:12:36
+################################################################
+pre-sweep packing property test (handoff 8.3) ...
+LEB128/fixed_u16 property test (numpy=True) ...
+  leb128     OK  (820 assertions, 20,000 random ids, range 0..2,097,151)
+  fixed_u16  OK  (618 assertions, 20,000 random ids, range 0..65,535)
+  total 1,438 assertions passed
+
+corpus     64MB (67,217,635 bytes, sha256=ebc84b4c6c085759...)
+profile    full
+results    ./results/sweep_64mb.jsonl
+cells      151 planned, 77 dropped by filtering
+             dropped   32x: packing=raw_utf8 is only valid with tokenizer=none
+             dropped    8x: tokenizer=none has no token ids to pack as leb128
+             dropped    8x: tokenizer=none has no token ids to pack as fixed_u16
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; o200k_base has 200019
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; cl100k_base has 100277
+             dropped    5x: backend=lzma_tuned_lp1pb1 asserts a fixed 2-byte period; only meaningful with packing=fixed_u16
+             dropped    4x: tokenization_layout=manual_pool is meaningless with tokenizer=none (no tokenization step)
+             dropped    4x: tokenization_layout=process_pool is meaningless with tokenizer=none (no tokenization step)
+           75 already done and verified -> 76 to run
+
+--------------------------------------------------------------------------
+PRE-FLIGHT ESTIMATE (handoff Section 8.4)
+  cells to run                 76
+  cells with no prior timing   73 (excluded from the time estimate)
+  estimated wall clock         0.02 h (1 min), from 75 prior verified rows
+  peak extra disk (1 archive)  21.4MB
+  free disk                    444.2GB
+--------------------------------------------------------------------------
+[1/76] d987fe3fc318 ratio_grid         none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6318x  18,508,011B  1.173MB/s  rss=759.45MB  55.2s
+[2/76] cacbf14ef15d ratio_grid         none/raw_utf8/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.5116x  19,141,448B  1.559MB/s  rss=347.93MB  41.2s
+[3/76] c9a1c153a0e6 ratio_grid         none/raw_utf8/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.5963x  18,690,641B  1.289MB/s  rss=1787.34MB  49.8s
+[4/76] 109d9258a6ca ratio_grid         o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6681x  18,324,865B  3.096MB/s  rss=1612.51MB  22.2s
+[5/76] cb727d0710dc ratio_grid         o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.5850x  18,749,738B  3.831MB/s  rss=1531.98MB  18.2s
+[6/76] af6e6fe169cd ratio_grid         o200k_base/leb128/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6182x  18,577,518B  3.188MB/s  rss=2025.34MB  21.6s
+[7/76] bf345d1f4436 ratio_grid         cl100k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6931x  18,200,966B  3.126MB/s  rss=1501.46MB  21.9s
+[8/76] d6e2271bb9cf ratio_grid         cl100k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6070x  18,635,520B  3.838MB/s  rss=1552.03MB  18.1s
+[9/76] 02e416018673 ratio_grid         cl100k_base/leb128/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6394x  18,469,530B  3.271MB/s  rss=2008.03MB  20.9s
+[10/76] f1b8dbb2d8dc ratio_grid         r50k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6856x  18,237,832B  2.851MB/s  rss=1599.43MB  23.9s
+[11/76] 3e3d2cf7f732 ratio_grid         r50k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.5843x  18,753,319B  3.372MB/s  rss=1585.55MB  20.5s
+[12/76] 9164ae7e48f4 ratio_grid         r50k_base/leb128/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6223x  18,556,659B  2.861MB/s  rss=2009.23MB  23.9s
+[13/76] f64e1ddd6d9b ratio_grid         r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8975x  17,246,468B  2.836MB/s  rss=1079.64MB  23.5s
+[14/76] 5c9931262b72 ratio_grid         r50k_base/fixed_u16/lzma_tuned_lp1pb1/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.9214x  17,141,189B  2.774MB/s  rss=1068.53MB  24.0s
+[15/76] c25a1c446644 ratio_grid         r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6765x  18,283,016B  3.008MB/s  rss=1128.74MB  22.1s
+[16/76] 04f881d7c7c0 ratio_grid         r50k_base/fixed_u16/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7163x  18,087,452B  2.864MB/s  rss=2094.71MB  23.2s
+[17/76] 71febd2e2989 ratio_grid         p50k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6915x  18,208,568B  2.906MB/s  rss=1530.84MB  23.5s
+[18/76] 4a0b3a02ab88 ratio_grid         p50k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.5928x  18,708,803B  3.606MB/s  rss=1635.47MB  19.2s
+[19/76] 63aef3df65d5 ratio_grid         p50k_base/leb128/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6285x  18,524,676B  3.068MB/s  rss=2043.86MB  22.3s
+[20/76] d2193aabf415 ratio_grid         p50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.9060x  17,209,016B  2.977MB/s  rss=1008.64MB  22.4s
+[21/76] 0e45017b2586 ratio_grid         p50k_base/fixed_u16/lzma_tuned_lp1pb1/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.9304x  17,101,861B  2.954MB/s  rss=1036.49MB  22.6s
+[22/76] 788ba83b2fe8 ratio_grid         p50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6886x  18,223,162B  3.689MB/s  rss=1111.98MB  18.2s
+[23/76] 2b68fdecc790 ratio_grid         p50k_base/fixed_u16/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7276x  18,032,562B  3.119MB/s  rss=1965.73MB  21.3s
+[24/76] 718553ab53f4 ofat_threads       o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.6681x  18,324,857B  2.791MB/s  rss=1516.78MB  24.9s
+[25/76] 493454a1be48 ofat_threads       o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.6681x  18,324,865B  3.001MB/s  rss=1519.72MB  22.9s
+[26/76] 270514d49684 ofat_layout        o200k_base/leb128/lzma_extreme/subprocess_cli/manual_pool c=2M b=128 t=20
+        -> 3.6681x  18,324,865B  3.006MB/s  rss=1530.5MB  22.8s
+[27/76] 45034fa8c8a7 ofat_layout        o200k_base/leb128/lzma_extreme/subprocess_cli/process_pool c=2M b=128 t=20
+        -> 3.6681x  18,324,865B  2.997MB/s  rss=3442.33MB  23.4s
+[28/76] 8db3bed47cf8 ofat_transport     o200k_base/leb128/lzma_extreme/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.6681x  18,324,861B  2.966MB/s  rss=1589.18MB  23.8s
+[29/76] 289aa966db54 ofat_chunk_size    o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 3.6681x  18,324,865B  2.993MB/s  rss=1511.84MB  22.9s
+[30/76] 300296149c3c ofat_chunk_size    o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 3.6681x  18,324,865B  3.097MB/s  rss=1541.59MB  22.2s
+[31/76] 448c376316d3 ofat_batch_chunks  o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 3.6681x  18,324,865B  3.114MB/s  rss=1530.09MB  22.1s
+[32/76] f74de8b3afe5 ofat_batch_chunks  o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 3.6681x  18,324,865B  3.084MB/s  rss=1527.47MB  22.3s
+[33/76] f2e1af512869 ofat_transport     o200k_base/leb128/lzma_fast/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.6687x  18,322,018B  3.106MB/s  rss=1590.57MB  22.7s
+[34/76] bfedfc8b6068 ofat_threads       o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.5850x  18,749,738B  3.354MB/s  rss=1535.05MB  20.6s
+[35/76] 5487beecdb9a ofat_threads       o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.5850x  18,749,738B  3.693MB/s  rss=1560.41MB  18.8s
+[36/76] fb2a1acd0e1e ofat_layout        o200k_base/leb128/zstd_19/subprocess_cli/manual_pool c=2M b=128 t=20
+        -> 3.5850x  18,749,738B  3.824MB/s  rss=1589.22MB  18.2s
+[37/76] b5c468c2b81d ofat_layout        o200k_base/leb128/zstd_19/subprocess_cli/process_pool c=2M b=128 t=20
+        -> 3.5850x  18,749,738B  3.725MB/s  rss=3521.51MB  19.2s
+[38/76] 335ee7c0e12e ofat_transport     o200k_base/leb128/zstd_19/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.5850x  18,749,738B  3.814MB/s  rss=1527.57MB  18.4s
+[39/76] 2307167c2fb1 ofat_chunk_size    o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 3.5850x  18,749,738B  3.791MB/s  rss=1493.55MB  18.4s
+[40/76] 12c0fe6f9010 ofat_chunk_size    o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 3.5850x  18,749,738B  3.804MB/s  rss=1620.11MB  18.3s
+[41/76] 2b16dbdc4879 ofat_batch_chunks  o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 3.5850x  18,749,738B  3.791MB/s  rss=1531.89MB  18.4s
+[42/76] 761547331a8d ofat_batch_chunks  o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 3.5850x  18,749,738B  3.788MB/s  rss=1563.84MB  18.4s
+[43/76] 107442c7c11f ofat_threads       none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.6318x  18,508,003B  1.283MB/s  rss=685.21MB  50.5s
+[44/76] b42f6cde348d ofat_threads       none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.6318x  18,508,011B  1.298MB/s  rss=759.76MB  49.9s
+[45/76] e8988ce13013 ofat_transport     none/raw_utf8/lzma_extreme/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.6318x  18,508,007B  1.275MB/s  rss=682.84MB  51.0s
+[46/76] 64efad16cc3b ofat_chunk_size    none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 3.6318x  18,508,011B  1.298MB/s  rss=759.9MB  49.9s
+[47/76] 668aa35ef72e ofat_chunk_size    none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 3.6318x  18,508,011B  1.283MB/s  rss=759.52MB  50.4s
+[48/76] 90969431a616 ofat_batch_chunks  none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 3.6318x  18,508,011B  1.301MB/s  rss=759.58MB  49.7s
+[49/76] 680832fc6b56 ofat_batch_chunks  none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 3.6318x  18,508,011B  1.3MB/s  rss=759.78MB  49.8s
+[50/76] aca733fcb192 ofat_transport     none/raw_utf8/lzma_fast/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.6123x  18,608,200B  1.348MB/s  rss=411.85MB  48.3s
+[51/76] 533f747cde11 ofat_threads       none/raw_utf8/zstd_19/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.5116x  19,141,448B  1.525MB/s  rss=267.14MB  42.1s
+[52/76] 5f1d38f7750d ofat_threads       none/raw_utf8/zstd_19/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.5116x  19,141,448B  1.745MB/s  rss=347.96MB  36.8s
+[53/76] 655fe7876060 ofat_transport     none/raw_utf8/zstd_19/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.5116x  19,141,448B  1.653MB/s  rss=364.45MB  39.2s
+[54/76] 043d471718b8 ofat_chunk_size    none/raw_utf8/zstd_19/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 3.5116x  19,141,448B  1.685MB/s  rss=348.2MB  38.1s
+[55/76] 739b39432ff5 ofat_chunk_size    none/raw_utf8/zstd_19/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 3.5116x  19,141,448B  1.701MB/s  rss=347.95MB  37.8s
+[56/76] 8bf61d35e0d4 ofat_batch_chunks  none/raw_utf8/zstd_19/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 3.5116x  19,141,448B  1.697MB/s  rss=347.97MB  37.9s
+[57/76] d195b5a5deb2 ofat_batch_chunks  none/raw_utf8/zstd_19/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 3.5116x  19,141,448B  1.677MB/s  rss=348.23MB  38.3s
+[58/76] 6d8021343374 ofat_threads       r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.8975x  17,246,460B  2.407MB/s  rss=1416.77MB  27.9s
+[59/76] 052c5ea34c9d ofat_threads       r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.8975x  17,246,468B  2.697MB/s  rss=981.35MB  24.6s
+[60/76] b420fc254157 ofat_layout        r50k_base/fixed_u16/lzma_extreme/subprocess_cli/manual_pool c=2M b=128 t=20
+        -> 3.8975x  17,246,468B  2.836MB/s  rss=1061.55MB  23.5s
+[61/76] 8ac35f57e931 ofat_layout        r50k_base/fixed_u16/lzma_extreme/subprocess_cli/process_pool c=2M b=128 t=20
+        -> 3.8975x  17,246,468B  2.807MB/s  rss=1998.65MB  24.0s
+[62/76] 612cab833da2 ofat_transport     r50k_base/fixed_u16/lzma_extreme/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.8975x  17,246,464B  2.768MB/s  rss=1133.44MB  24.6s
+[63/76] b36a2d674a51 ofat_chunk_size    r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 3.8975x  17,246,468B  2.714MB/s  rss=1035.77MB  24.5s
+[64/76] 01056b2e0a8e ofat_chunk_size    r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 3.8975x  17,246,468B  2.709MB/s  rss=989.96MB  24.5s
+[65/76] 5f0de4ea9ff1 ofat_batch_chunks  r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 3.8975x  17,246,468B  2.724MB/s  rss=1049.59MB  24.4s
+[66/76] 3178789be13e ofat_batch_chunks  r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 3.8975x  17,246,468B  2.709MB/s  rss=1084.38MB  24.5s
+[67/76] 7ff5782e8ad1 ofat_transport     r50k_base/fixed_u16/lzma_fast/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.8953x  17,255,937B  2.729MB/s  rss=1133.27MB  24.9s
+[68/76] 23b44f279f33 ofat_threads       r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.6765x  18,283,016B  2.84MB/s  rss=993.39MB  23.4s
+[69/76] 8b7b57961a8a ofat_threads       r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.6765x  18,283,016B  3.276MB/s  rss=1107.68MB  20.4s
+[70/76] 6980afa2c751 ofat_layout        r50k_base/fixed_u16/zstd_19/subprocess_cli/manual_pool c=2M b=128 t=20
+        -> 3.6765x  18,283,016B  3.316MB/s  rss=1068.39MB  20.2s
+[71/76] 8dab51940f62 ofat_layout        r50k_base/fixed_u16/zstd_19/subprocess_cli/process_pool c=2M b=128 t=20
+        -> 3.6765x  18,283,016B  3.339MB/s  rss=2018.09MB  20.4s
+[72/76] 6129bf452a69 ofat_transport     r50k_base/fixed_u16/zstd_19/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.6765x  18,283,016B  3.358MB/s  rss=1064.8MB  20.1s
+[73/76] bc8241e73df8 ofat_chunk_size    r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 3.6765x  18,283,016B  3.317MB/s  rss=1053.51MB  20.2s
+[74/76] 0ba851e6808b ofat_chunk_size    r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 3.6765x  18,283,016B  3.42MB/s  rss=1035.2MB  19.6s
+[75/76] a0396ac39c06 ofat_batch_chunks  r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 3.6765x  18,283,016B  3.395MB/s  rss=1002.69MB  19.7s
+[76/76] fb5b8eb891ad ofat_batch_chunks  r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 3.6765x  18,283,016B  3.366MB/s  rss=1041.99MB  19.9s
+
+sweep complete: 76 verified, 0 failed, in 34.9 min
+
+################################################################
+# 256MB / full profile / ratio grid + threads probe
+# 2026-08-16 12:47:29
+################################################################
+pre-sweep packing property test (handoff 8.3) ...
+LEB128/fixed_u16 property test (numpy=True) ...
+  leb128     OK  (820 assertions, 20,000 random ids, range 0..2,097,151)
+  fixed_u16  OK  (618 assertions, 20,000 random ids, range 0..65,535)
+  total 1,438 assertions passed
+
+corpus     256MB (268,504,786 bytes, sha256=834ee677b7773562...)
+profile    full
+results    ./results/sweep_256mb.jsonl
+cells      51 planned, 69 dropped by filtering
+             dropped   32x: packing=raw_utf8 is only valid with tokenizer=none
+             dropped    8x: tokenizer=none has no token ids to pack as leb128
+             dropped    8x: tokenizer=none has no token ids to pack as fixed_u16
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; o200k_base has 200019
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; cl100k_base has 100277
+             dropped    5x: backend=lzma_tuned_lp1pb1 asserts a fixed 2-byte period; only meaningful with packing=fixed_u16
+           0 already done and verified -> 51 to run
+
+--------------------------------------------------------------------------
+PRE-FLIGHT ESTIMATE (handoff Section 8.4)
+  cells to run                 51
+  cells with no prior timing   0 (excluded from the time estimate)
+  estimated wall clock         0.91 h (54 min), from 151 prior verified rows
+  peak extra disk (1 archive)  86.1MB
+  free disk                    444.0GB
+--------------------------------------------------------------------------
+[1/51] 38b48510eab8 ratio_grid         none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7117x  72,340,347B  1.974MB/s  rss=1732.18MB  131.0s
+[2/51] 75f21dbaba99 ratio_grid         none/raw_utf8/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6451x  73,661,152B  4.329MB/s  rss=1861.57MB  60.0s
+[3/51] 4f60ef09c1aa ratio_grid         none/raw_utf8/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.5557x  75,514,458B  4.341MB/s  rss=837.73MB  59.3s
+[4/51] aa2eda2e7c73 ratio_grid         none/raw_utf8/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.1627x  84,896,172B  71.539MB/s  rss=755.77MB  3.8s
+[5/51] f0974a85efc7 ratio_grid         none/raw_utf8/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7198x  72,183,218B  1.048MB/s  rss=2031.03MB  244.8s
+[6/51] 54f5c6a9186c ratio_grid         none/raw_utf8/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 2.6814x  100,135,693B  18.318MB/s  rss=50.69MB  15.4s
+[7/51] 627338e45d20 ratio_grid         none/raw_utf8/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.5520x  75,592,164B  19.503MB/s  rss=53.71MB  19.3s
+[8/51] ebe891852288 ratio_grid         o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8131x  70,415,573B  2.281MB/s  rss=5963.94MB  117.8s
+[9/51] 3d5566b44251 ratio_grid         o200k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7467x  71,664,398B  4.877MB/s  rss=6032.1MB  58.2s
+[10/51] 846f8a5c4d66 ratio_grid         o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6521x  73,519,826B  5.345MB/s  rss=6064.23MB  53.3s
+[11/51] 12bb0b5235ef ratio_grid         o200k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3556x  80,017,726B  30.579MB/s  rss=5846.71MB  13.8s
+[12/51] 7fa90c6649d8 ratio_grid         o200k_base/leb128/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7819x  70,997,400B  2.342MB/s  rss=6005.17MB  114.7s
+[13/51] 7ba3f52de8d8 ratio_grid         o200k_base/leb128/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 2.9257x  91,774,171B  22.8MB/s  rss=5905.37MB  17.9s
+[14/51] d1d25f5831d7 ratio_grid         o200k_base/leb128/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3761x  79,532,078B  18.054MB/s  rss=5950.6MB  25.0s
+[15/51] deb628e0f020 ratio_grid         cl100k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8394x  69,934,786B  2.14MB/s  rss=5993.24MB  125.2s
+[16/51] 602d97b4c31f ratio_grid         cl100k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7744x  71,138,815B  4.691MB/s  rss=6006.54MB  60.1s
+[17/51] cc9c3fc284f8 ratio_grid         cl100k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6735x  73,093,335B  5.248MB/s  rss=6069.59MB  54.0s
+[18/51] 8233637bb947 ratio_grid         cl100k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3765x  79,520,909B  25.311MB/s  rss=5970.78MB  15.3s
+[19/51] 229731d42980 ratio_grid         cl100k_base/leb128/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8012x  70,637,365B  2.342MB/s  rss=5980.02MB  114.5s
+[20/51] 674a9634124e ratio_grid         cl100k_base/leb128/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 2.9648x  90,562,778B  20.268MB/s  rss=6078.69MB  18.6s
+[21/51] 46a512d31ad1 ratio_grid         cl100k_base/leb128/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.4086x  78,773,205B  17.585MB/s  rss=6094.85MB  24.6s
+[22/51] 528245d8ae48 ratio_grid         r50k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7978x  70,700,628B  2.447MB/s  rss=6394.48MB  110.3s
+[23/51] 4cf4b8d9bd1b ratio_grid         r50k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7387x  71,818,169B  5.12MB/s  rss=6443.77MB  55.7s
+[24/51] 67f579c36218 ratio_grid         r50k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6455x  73,652,766B  5.363MB/s  rss=6338.18MB  53.2s
+[25/51] 1faf852088f3 ratio_grid         r50k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3242x  80,773,425B  25.998MB/s  rss=6322.04MB  15.4s
+[26/51] 0919aa310459 ratio_grid         r50k_base/leb128/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7770x  71,089,058B  2.238MB/s  rss=6302.82MB  119.9s
+[27/51] 4de106b6c3d3 ratio_grid         r50k_base/leb128/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 2.9943x  89,672,227B  11.257MB/s  rss=6325.76MB  29.0s
+[28/51] 9b522877c7c6 ratio_grid         r50k_base/leb128/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.4396x  78,063,763B  16.414MB/s  rss=6286.45MB  26.1s
+[29/51] 37edbf0b65ab ratio_grid         r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 4.0152x  66,872,072B  2.527MB/s  rss=4056.7MB  104.6s
+[30/51] a61907ca5f67 ratio_grid         r50k_base/fixed_u16/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.9534x  67,917,689B  5.371MB/s  rss=4223.2MB  50.8s
+[31/51] 46287b79116b ratio_grid         r50k_base/fixed_u16/lzma_tuned_lp1pb1/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 4.0344x  66,553,385B  2.562MB/s  rss=4159.88MB  103.1s
+[32/51] f13c732f15b2 ratio_grid         r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7370x  71,850,344B  5.794MB/s  rss=4110.68MB  47.2s
+[33/51] 0b14238e0e1c ratio_grid         r50k_base/fixed_u16/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3604x  79,903,208B  34.23MB/s  rss=4059.57MB  10.5s
+[34/51] 5f490088805b ratio_grid         r50k_base/fixed_u16/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8697x  69,386,459B  2.295MB/s  rss=4904.54MB  114.6s
+[35/51] 22a82c9d7ce1 ratio_grid         r50k_base/fixed_u16/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.0828x  87,097,074B  12.583MB/s  rss=3921.06MB  24.1s
+[36/51] 4583e03c0463 ratio_grid         r50k_base/fixed_u16/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.4080x  78,785,652B  18.672MB/s  rss=3952.71MB  21.5s
+[37/51] 5153018a42c6 ratio_grid         p50k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8099x  70,475,912B  2.445MB/s  rss=6283.06MB  110.2s
+[38/51] 165d9369123f ratio_grid         p50k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7514x  71,573,837B  5.083MB/s  rss=6096.7MB  55.9s
+[39/51] 58ea6efdfcfd ratio_grid         p50k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6553x  73,456,878B  5.427MB/s  rss=6249.86MB  52.5s
+[40/51] c1f08f481f81 ratio_grid         p50k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3322x  80,577,692B  27.208MB/s  rss=6229.41MB  14.7s
+[41/51] d1e0e637876c ratio_grid         p50k_base/leb128/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7852x  70,935,161B  2.306MB/s  rss=6296.22MB  116.4s
+[42/51] 2debd2341d57 ratio_grid         p50k_base/leb128/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.0003x  89,492,420B  11.621MB/s  rss=6303.96MB  28.1s
+[43/51] 167e567c6fb3 ratio_grid         p50k_base/leb128/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.4430x  77,984,623B  17.026MB/s  rss=6203.74MB  25.3s
+[44/51] aa909b26a427 ratio_grid         p50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 4.0295x  66,635,504B  2.503MB/s  rss=4073.02MB  105.4s
+[45/51] 5810e450b996 ratio_grid         p50k_base/fixed_u16/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.9684x  67,661,245B  5.288MB/s  rss=4019.75MB  51.6s
+[46/51] cfc42f305701 ratio_grid         p50k_base/fixed_u16/lzma_tuned_lp1pb1/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 4.0488x  66,316,481B  2.491MB/s  rss=4046.29MB  105.9s
+[47/51] 9863f0864f1f ratio_grid         p50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7488x  71,624,723B  5.67MB/s  rss=4071.71MB  48.1s
+[48/51] 93c689102156 ratio_grid         p50k_base/fixed_u16/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3650x  79,792,851B  34.594MB/s  rss=3979.14MB  10.3s
+[49/51] 8005d94c6871 ratio_grid         p50k_base/fixed_u16/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8817x  69,172,366B  2.315MB/s  rss=5055.36MB  113.6s
+[50/51] 27ea9a8547ab ratio_grid         p50k_base/fixed_u16/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.0899x  86,896,789B  12.527MB/s  rss=3892.56MB  24.2s
+[51/51] 636420eab061 ratio_grid         p50k_base/fixed_u16/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.4135x  78,660,034B  19.343MB/s  rss=3950.2MB  21.0s
+
+sweep complete: 51 verified, 0 failed, in 52.1 min
+pre-sweep packing property test (handoff 8.3) ...
+LEB128/fixed_u16 property test (numpy=True) ...
+  leb128     OK  (820 assertions, 20,000 random ids, range 0..2,097,151)
+  fixed_u16  OK  (618 assertions, 20,000 random ids, range 0..65,535)
+  total 1,438 assertions passed
+
+corpus     256MB (268,504,786 bytes, sha256=834ee677b7773562...)
+profile    full
+results    ./results/sweep_256mb.jsonl
+cells      151 planned, 77 dropped by filtering
+             dropped   32x: packing=raw_utf8 is only valid with tokenizer=none
+             dropped    8x: tokenizer=none has no token ids to pack as leb128
+             dropped    8x: tokenizer=none has no token ids to pack as fixed_u16
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; o200k_base has 200019
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; cl100k_base has 100277
+             dropped    5x: backend=lzma_tuned_lp1pb1 asserts a fixed 2-byte period; only meaningful with packing=fixed_u16
+             dropped    4x: tokenization_layout=manual_pool is meaningless with tokenizer=none (no tokenization step)
+             dropped    4x: tokenization_layout=process_pool is meaningless with tokenizer=none (no tokenization step)
+           51 already done and verified -> 100 to run
+
+--------------------------------------------------------------------------
+PRE-FLIGHT ESTIMATE (handoff Section 8.4)
+  cells to run                 100
+  cells with no prior timing   0 (excluded from the time estimate)
+  estimated wall clock         1.99 h (120 min), from 202 prior verified rows
+  peak extra disk (1 archive)  77.2MB
+  free disk                    442.0GB
+--------------------------------------------------------------------------
+[1/100] 325116ace470 ofat_threads       o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.8172x  70,341,561B  2.141MB/s  rss=5949.66MB  126.9s
+[2/100] ebe0115a9733 ofat_threads       o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.8131x  70,415,573B  2.332MB/s  rss=6025.46MB  115.4s
+[3/100] 2dd8ef6d75f5 ofat_layout        o200k_base/leb128/lzma_extreme/subprocess_cli/manual_pool c=2M b=128 t=20
+        -> 3.8131x  70,415,573B  2.362MB/s  rss=5906.79MB  113.9s
+[4/100] 3c1650294eb3 ofat_layout        o200k_base/leb128/lzma_extreme/subprocess_cli/process_pool c=2M b=128 t=20
+        -> 3.8131x  70,415,573B  2.325MB/s  rss=7893.71MB  116.1s
+[5/100] bbe67b803e86 ofat_transport     o200k_base/leb128/lzma_extreme/in_process_binding/library_batch c=2M b=128 t=20
+
+################################################################
+# 64MB / full matrix (ratio grid + OFAT)
+# 2026-08-16 13:49:04
+################################################################
+pre-sweep packing property test (handoff 8.3) ...
+LEB128/fixed_u16 property test (numpy=True) ...
+  leb128     OK  (820 assertions, 20,000 random ids, range 0..2,097,151)
+  fixed_u16  OK  (618 assertions, 20,000 random ids, range 0..65,535)
+  total 1,438 assertions passed
+
+corpus     64MB (67,217,635 bytes, sha256=ebc84b4c6c085759...)
+profile    full
+results    ./results/sweep_64mb.jsonl
+cells      151 planned, 77 dropped by filtering
+             dropped   32x: packing=raw_utf8 is only valid with tokenizer=none
+             dropped    8x: tokenizer=none has no token ids to pack as leb128
+             dropped    8x: tokenizer=none has no token ids to pack as fixed_u16
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; o200k_base has 200019
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; cl100k_base has 100277
+             dropped    5x: backend=lzma_tuned_lp1pb1 asserts a fixed 2-byte period; only meaningful with packing=fixed_u16
+             dropped    4x: tokenization_layout=manual_pool is meaningless with tokenizer=none (no tokenization step)
+             dropped    4x: tokenization_layout=process_pool is meaningless with tokenizer=none (no tokenization step)
+           151 already done and verified -> 0 to run
+
+nothing to do
+
+################################################################
+# 256MB / ratio grid
+# 2026-08-16 13:49:05
+################################################################
+pre-sweep packing property test (handoff 8.3) ...
+LEB128/fixed_u16 property test (numpy=True) ...
+  leb128     OK  (820 assertions, 20,000 random ids, range 0..2,097,151)
+  fixed_u16  OK  (618 assertions, 20,000 random ids, range 0..65,535)
+  total 1,438 assertions passed
+
+corpus     256MB (268,504,786 bytes, sha256=834ee677b7773562...)
+profile    full
+results    ./results/sweep_256mb.jsonl
+cells      51 planned, 69 dropped by filtering
+             dropped   32x: packing=raw_utf8 is only valid with tokenizer=none
+             dropped    8x: tokenizer=none has no token ids to pack as leb128
+             dropped    8x: tokenizer=none has no token ids to pack as fixed_u16
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; o200k_base has 200019
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; cl100k_base has 100277
+             dropped    5x: backend=lzma_tuned_lp1pb1 asserts a fixed 2-byte period; only meaningful with packing=fixed_u16
+           55 already done and verified -> 0 to run
+
+nothing to do
+
+################################################################
+# 1GB / ratio grid
+# 2026-08-16 13:49:05
+################################################################
+pre-sweep packing property test (handoff 8.3) ...
+LEB128/fixed_u16 property test (numpy=True) ...
+  leb128     OK  (820 assertions, 20,000 random ids, range 0..2,097,151)
+  fixed_u16  OK  (618 assertions, 20,000 random ids, range 0..65,535)
+  total 1,438 assertions passed
+
+corpus     1GB (1,075,001,664 bytes, sha256=dfd7ec8b626488fc...)
+profile    full
+results    ./results/sweep_1gb.jsonl
+cells      51 planned, 69 dropped by filtering
+             dropped   32x: packing=raw_utf8 is only valid with tokenizer=none
+             dropped    8x: tokenizer=none has no token ids to pack as leb128
+             dropped    8x: tokenizer=none has no token ids to pack as fixed_u16
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; o200k_base has 200019
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; cl100k_base has 100277
+             dropped    5x: backend=lzma_tuned_lp1pb1 asserts a fixed 2-byte period; only meaningful with packing=fixed_u16
+           0 already done and verified -> 51 to run
+
+--------------------------------------------------------------------------
+PRE-FLIGHT ESTIMATE (handoff Section 8.4)
+  cells to run                 51
+  cells with no prior timing   0 (excluded from the time estimate)
+  estimated wall clock         3.66 h (220 min), from 206 prior verified rows
+  peak extra disk (1 archive)  344.0MB
+  free disk                    442.0GB
+--------------------------------------------------------------------------
+[1/51] 623c12b3a0d1 ratio_grid         none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7332x  287,959,027B  7.242MB/s  rss=6766.43MB  143.9s
+[2/51] 6ca1e9fc6307 ratio_grid         none/raw_utf8/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6657x  293,256,292B  13.551MB/s  rss=7283.44MB  77.7s
+[3/51] b7e22f143b3a ratio_grid         none/raw_utf8/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.5807x  300,219,192B  11.96MB/s  rss=2795.77MB  86.7s
+[4/51] d924ca8849cc ratio_grid         none/raw_utf8/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.1825x  337,787,664B  79.023MB/s  rss=1830.65MB  13.9s
+[5/51] 500b2f58b8d3 ratio_grid         none/raw_utf8/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7817x  284,263,547B  1.626MB/s  rss=4289.67MB  632.0s
+[6/51] 80dcc1365171 ratio_grid         none/raw_utf8/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 2.6928x  399,217,452B  18.506MB/s  rss=50.62MB  60.9s
+[7/51] 02eb5c9f4015 ratio_grid         none/raw_utf8/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.5659x  301,468,508B  19.823MB/s  rss=52.8MB  75.9s
+[8/51] cbf1af8e473e ratio_grid         o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8368x  280,180,985B  7.404MB/s  rss=7083.42MB  159.8s
+[9/51] 5bb701f0e04d ratio_grid         o200k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7695x  285,186,422B  13.292MB/s  rss=7706.0MB  98.4s
+[10/51] a961f2e89e9b ratio_grid         o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6840x  291,803,435B  13.606MB/s  rss=6876.54MB  95.9s
+[11/51] 332ee9495094 ratio_grid         o200k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3779x  318,241,931B  34.342MB/s  rss=6522.51MB  50.3s
+[12/51] 855835326bf1 ratio_grid         o200k_base/leb128/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8763x  277,329,833B  2.124MB/s  rss=7358.64MB  503.1s
+[13/51] daaff6715d49 ratio_grid         o200k_base/leb128/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 2.9413x  365,479,466B  23.361MB/s  rss=6069.4MB  67.3s
+[14/51] cd8946371da5 ratio_grid         o200k_base/leb128/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3918x  316,941,438B  19.911MB/s  rss=5965.68MB  91.7s
+[15/51] ffb32e487e16 ratio_grid         cl100k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8620x  278,350,746B  7.132MB/s  rss=6937.21MB  165.3s
+[16/51] 98c78361a166 ratio_grid         cl100k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7951x  283,261,071B  12.372MB/s  rss=7683.0MB  103.9s
+[17/51] d5ad5f268894 ratio_grid         cl100k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7053x  290,128,019B  12.611MB/s  rss=6822.91MB  101.4s
+[18/51] e65a06627d19 ratio_grid         cl100k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3986x  316,308,624B  29.995MB/s  rss=6495.61MB  54.4s
+[19/51] 7933eeae0485 ratio_grid         cl100k_base/leb128/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8950x  275,992,138B  2.12MB/s  rss=7348.52MB  503.7s
+[20/51] d141b383a3c6 ratio_grid         cl100k_base/leb128/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 2.9810x  360,621,693B  20.685MB/s  rss=6016.88MB  72.5s
+[21/51] d1af59808e24 ratio_grid         cl100k_base/leb128/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.4246x  313,905,360B  17.964MB/s  rss=6054.01MB  96.8s
+[22/51] e88a9243cd81 ratio_grid         r50k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8260x  280,970,616B  7.448MB/s  rss=7691.29MB  159.8s
+[23/51] a71b5c16d967 ratio_grid         r50k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7650x  285,525,641B  12.705MB/s  rss=8594.55MB  103.0s
+[24/51] c046f2e74327 ratio_grid         r50k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6755x  292,477,113B  12.894MB/s  rss=7277.26MB  101.0s
+[25/51] 76d5f99f2bd7 ratio_grid         r50k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3455x  321,325,983B  29.172MB/s  rss=6994.36MB  56.6s
+[26/51] 72f317b8595a ratio_grid         r50k_base/leb128/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8613x  278,403,042B  2.233MB/s  rss=7642.32MB  480.5s
+[27/51] 8a86456ed243 ratio_grid         r50k_base/leb128/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.0096x  357,186,608B  11.497MB/s  rss=6366.6MB  113.5s
+[28/51] 0ca4b444c2c6 ratio_grid         r50k_base/leb128/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.4547x  311,168,663B  16.237MB/s  rss=6449.91MB  104.4s
+[29/51] 9e6d9277ddc8 ratio_grid         r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 4.0480x  265,566,924B  7.968MB/s  rss=5342.03MB  141.1s
+[30/51] 415f5725da99 ratio_grid         r50k_base/fixed_u16/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.9811x  270,029,253B  14.185MB/s  rss=6112.39MB  84.9s
+[31/51] 1383a5eed53c ratio_grid         r50k_base/fixed_u16/lzma_tuned_lp1pb1/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 4.0661x  264,379,209B  7.99MB/s  rss=5288.39MB  141.0s
+[32/51] 239694aafc28 ratio_grid         r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7669x  285,382,681B  14.428MB/s  rss=5027.02MB  83.0s
+[33/51] b6d389f557c2 ratio_grid         r50k_base/fixed_u16/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3800x  318,051,169B  38.968MB/s  rss=4712.03MB  38.2s
+[34/51] ff56388b7029 ratio_grid         r50k_base/fixed_u16/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.9513x  272,062,970B  2.311MB/s  rss=5473.85MB  455.6s
+[35/51] 3c9612047917 ratio_grid         r50k_base/fixed_u16/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.0979x  347,006,805B  12.415MB/s  rss=3921.48MB  97.3s
+[36/51] a781a5f3cfb0 ratio_grid         r50k_base/fixed_u16/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.4232x  314,032,958B  18.668MB/s  rss=3952.86MB  86.0s
+[37/51] 810178d58640 ratio_grid         p50k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8416x  279,829,956B  7.357MB/s  rss=7448.78MB  161.3s
+[38/51] 273e9bbe92e0 ratio_grid         p50k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7819x  284,246,657B  12.511MB/s  rss=8253.34MB  103.6s
+[39/51] face67ec88e2 ratio_grid         p50k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6863x  291,617,588B  12.915MB/s  rss=7187.26MB  100.2s
+[40/51] 282ae1e3dfb8 ratio_grid         p50k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3560x  320,322,722B  29.764MB/s  rss=6747.47MB  55.3s
+[41/51] fed2195ae2a1 ratio_grid         p50k_base/leb128/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8723x  277,610,951B  2.193MB/s  rss=7700.53MB  488.5s
+[42/51] 0ffc2e54c729 ratio_grid         p50k_base/leb128/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.0162x  356,407,555B  11.604MB/s  rss=6291.86MB  112.3s
+[43/51] a2fdc9daa54e ratio_grid         p50k_base/leb128/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.4571x  310,957,211B  17.208MB/s  rss=6331.83MB  100.4s
+[44/51] 97551c1c7925 ratio_grid         p50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 4.0668x  264,335,564B  7.825MB/s  rss=5113.32MB  143.5s
+[45/51] a63d5362adff ratio_grid         p50k_base/fixed_u16/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 4.0037x  268,504,437B  14.119MB/s  rss=5838.78MB  85.0s
+[46/51] 925b56d64f7e ratio_grid         p50k_base/fixed_u16/lzma_tuned_lp1pb1/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 4.0855x  263,129,045B  7.876MB/s  rss=5251.12MB  142.5s
+[47/51] a209139ef006 ratio_grid         p50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7803x  284,373,086B  14.356MB/s  rss=4921.03MB  83.2s
+[48/51] b7a18584064a ratio_grid         p50k_base/fixed_u16/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3905x  317,058,604B  39.038MB/s  rss=4609.89MB  37.9s
+[49/51] 936454f5115e ratio_grid         p50k_base/fixed_u16/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.9672x  270,970,624B  2.256MB/s  rss=5335.94MB  466.0s
+[50/51] 471734b81e3b ratio_grid         p50k_base/fixed_u16/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.1057x  346,134,102B  12.434MB/s  rss=3892.75MB  97.1s
+[51/51] 279b336c3ee2 ratio_grid         p50k_base/fixed_u16/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.4294x  313,468,120B  19.636MB/s  rss=3999.06MB  83.0s
+
+sweep complete: 51 verified, 0 failed, in 129.5 min
+
+################################################################
+# analysis (3 tiers)
+# 2026-08-16 15:58:36
+################################################################
+wrote ./report/results.csv
+wrote ./report/summary.md
+wrote ./report/ratio_vs_corpus_size.png
+wrote ./report/ratio_gap_vs_corpus_size.png
+
+257/257 rows round-trip verified across tiers: 64MB, 256MB, 1GB
+
+################################################################
+# 4GB / ratio grid  -- the top tier
+# 2026-08-16 15:58:38
+################################################################
+pre-sweep packing property test (handoff 8.3) ...
+LEB128/fixed_u16 property test (numpy=True) ...
+  leb128     OK  (820 assertions, 20,000 random ids, range 0..2,097,151)
+  fixed_u16  OK  (618 assertions, 20,000 random ids, range 0..65,535)
+  total 1,438 assertions passed
+
+corpus     4GB (4,295,254,520 bytes, sha256=d997553b9ebcc27d...)
+profile    full
+results    ./results/sweep_4gb.jsonl
+cells      51 planned, 69 dropped by filtering
+             dropped   32x: packing=raw_utf8 is only valid with tokenizer=none
+             dropped    8x: tokenizer=none has no token ids to pack as leb128
+             dropped    8x: tokenizer=none has no token ids to pack as fixed_u16
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; o200k_base has 200019
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; cl100k_base has 100277
+             dropped    5x: backend=lzma_tuned_lp1pb1 asserts a fixed 2-byte period; only meaningful with packing=fixed_u16
+           0 already done and verified -> 51 to run
+
+--------------------------------------------------------------------------
+PRE-FLIGHT ESTIMATE (handoff Section 8.4)
+  cells to run                 51
+  cells with no prior timing   0 (excluded from the time estimate)
+  estimated wall clock         14.50 h (870 min), from 257 prior verified rows
+  peak extra disk (1 archive)  1.3GB
+  free disk                    442.3GB
+--------------------------------------------------------------------------
+[1/51] d54dfb50a050 ratio_grid         none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7221x  1,153,987,139B  11.56MB/s  rss=17158.03MB  361.7s
+[2/51] 241b628e8621 ratio_grid         none/raw_utf8/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6561x  1,174,814,368B  14.383MB/s  rss=9356.11MB  291.8s
+[3/51] ffc5e87da710 ratio_grid         none/raw_utf8/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.5714x  1,202,686,871B  14.359MB/s  rss=3604.31MB  289.1s
+[4/51] 3101bc8c5df0 ratio_grid         none/raw_utf8/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.1740x  1,353,266,730B  76.191MB/s  rss=1842.2MB  57.6s
+[5/51] 7e735ad0bfd9 ratio_grid         none/raw_utf8/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8027x  1,129,532,116B  4.87MB/s  rss=12034.7MB  847.0s
+[6/51] 40df5f38b0cc ratio_grid         none/raw_utf8/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 2.6887x  1,597,501,421B  18.277MB/s  rss=50.57MB  246.0s
+[7/51] 0fa940a79b86 ratio_grid         none/raw_utf8/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.5588x  1,206,922,241B  19.845MB/s  rss=52.85MB  303.3s
+[8/51] d82be783ad9f ratio_grid         o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8278x  1,122,129,165B  16.658MB/s  rss=15629.41MB  330.5s
+[9/51] f323d5983e8f ratio_grid         o200k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7594x  1,142,531,350B  22.776MB/s  rss=15361.77MB  265.1s
+[10/51] ccc7a993c944 ratio_grid         o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6765x  1,168,285,144B  23.309MB/s  rss=9813.09MB  256.5s
+[11/51] 274d8125a129 ratio_grid         o200k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3700x  1,274,573,904B  36.498MB/s  rss=7118.92MB  193.7s
+[12/51] 72d607a03cfe ratio_grid         o200k_base/leb128/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.9113x  1,098,171,010B  5.721MB/s  rss=10784.84MB  798.0s
+[13/51] 6cd07c198fcf ratio_grid         o200k_base/leb128/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 2.9369x  1,462,523,818B  23.453MB/s  rss=6061.85MB  270.2s
+[14/51] bbf242a74cc2 ratio_grid         o200k_base/leb128/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3858x  1,268,610,439B  19.931MB/s  rss=6103.97MB  365.5s
+[15/51] 0e600377f96a ratio_grid         cl100k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8517x  1,115,158,722B  15.387MB/s  rss=15379.28MB  349.6s
+[16/51] e56bba33ce27 ratio_grid         cl100k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7848x  1,134,863,675B  20.618MB/s  rss=14588.67MB  282.3s
+[17/51] 63c7c2d92731 ratio_grid         cl100k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6979x  1,161,552,382B  20.998MB/s  rss=9550.45MB  275.4s
+[18/51] fe1e22d7cef7 ratio_grid         cl100k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3898x  1,267,110,558B  30.783MB/s  rss=7127.53MB  212.7s
+[19/51] 1ad495cfda26 ratio_grid         cl100k_base/leb128/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.9297x  1,093,010,184B  5.634MB/s  rss=10883.81MB  806.9s
+[20/51] ae6ac357f8a5 ratio_grid         cl100k_base/leb128/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 2.9763x  1,443,163,503B  20.652MB/s  rss=6133.52MB  289.6s
+[21/51] 82aa840cc270 ratio_grid         cl100k_base/leb128/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.4193x  1,256,177,292B  18.021MB/s  rss=6118.02MB  384.6s
+[22/51] ad4bdf0b9f4c ratio_grid         r50k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8242x  1,123,182,636B  15.437MB/s  rss=17453.93MB  354.8s
+[23/51] b31763d0949f ratio_grid         r50k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7572x  1,143,211,701B  20.747MB/s  rss=15102.98MB  285.4s
+[24/51] 198207aae36f ratio_grid         r50k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6660x  1,171,635,715B  20.609MB/s  rss=9930.52MB  284.5s
+[25/51] 173b5422baf1 ratio_grid         r50k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3371x  1,287,115,482B  29.958MB/s  rss=7476.23MB  222.2s
+[26/51] d802c4744af3 ratio_grid         r50k_base/leb128/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8934x  1,103,218,647B  5.689MB/s  rss=11480.57MB  805.5s
+[27/51] e8b00710fff6 ratio_grid         r50k_base/leb128/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.0039x  1,429,872,057B  11.161MB/s  rss=6434.81MB  470.0s
+[28/51] f7bf950cf153 ratio_grid         r50k_base/leb128/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.4468x  1,246,147,177B  16.319MB/s  rss=6413.84MB  425.1s
+[29/51] 80c97b80ece9 ratio_grid         r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 4.0454x  1,061,753,144B  16.877MB/s  rss=15672.03MB  294.4s
+[30/51] c711df6b68d0 ratio_grid         r50k_base/fixed_u16/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.9738x  1,080,894,025B  22.166MB/s  rss=13296.58MB  235.4s
+[31/51] a3f8130f4560 ratio_grid         r50k_base/fixed_u16/lzma_tuned_lp1pb1/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 4.0634x  1,057,067,001B  17.439MB/s  rss=15666.54MB  285.4s
+[32/51] f7df3d030c8a ratio_grid         r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7571x  1,143,224,959B  22.613MB/s  rss=7781.31MB  228.7s
+[33/51] 25b70534901e ratio_grid         r50k_base/fixed_u16/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3722x  1,273,717,709B  39.829MB/s  rss=5104.35MB  150.0s
+[34/51] 1ed4ebdf8298 ratio_grid         r50k_base/fixed_u16/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.9841x  1,078,089,799B  6.199MB/s  rss=9058.88MB  708.4s
+[35/51] 6a3a57e1ba35 ratio_grid         r50k_base/fixed_u16/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.0920x  1,389,137,592B  12.32MB/s  rss=4076.54MB  392.7s
+[36/51] 2fe44a0244e2 ratio_grid         r50k_base/fixed_u16/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.4169x  1,257,075,774B  18.515MB/s  rss=4121.16MB  346.0s
+[37/51] c0da1d13b7fb ratio_grid         p50k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.8355x  1,119,872,584B  15.293MB/s  rss=17053.52MB  353.9s
+[38/51] ea3458e6a3de ratio_grid         p50k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7711x  1,138,989,965B  19.99MB/s  rss=14953.05MB  296.9s
+[39/51] 52098cb05fe5 ratio_grid         p50k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.6776x  1,167,949,675B  19.501MB/s  rss=10002.24MB  299.1s
+[40/51] c62070227958 ratio_grid         p50k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3466x  1,283,466,995B  28.518MB/s  rss=7365.33MB  233.0s
+[41/51] 5b92a7141cc9 ratio_grid         p50k_base/leb128/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.9058x  1,099,711,224B  5.243MB/s  rss=11225.38MB  870.4s
+[42/51] d8a368fc56d2 ratio_grid         p50k_base/leb128/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.0108x  1,426,593,853B  11.005MB/s  rss=6336.8MB  473.1s
+[43/51] db4bc9b442ad ratio_grid         p50k_base/leb128/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.4507x  1,244,758,999B  16.602MB/s  rss=6315.08MB  417.7s
+[44/51] d76d14b85e5c ratio_grid         p50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 4.0602x  1,057,885,412B  15.817MB/s  rss=15314.07MB  312.5s
+[45/51] 9e9b9d006a6d ratio_grid         p50k_base/fixed_u16/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.9928x  1,075,755,361B  19.812MB/s  rss=13319.52MB  260.0s
+[46/51] d9fd24fef53f ratio_grid         p50k_base/fixed_u16/lzma_tuned_lp1pb1/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 4.0785x  1,053,147,357B  16.257MB/s  rss=15306.88MB  304.6s
+[47/51] 9d46c7c6e7f6 ratio_grid         p50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.7708x  1,139,070,161B  20.682MB/s  rss=7713.04MB  247.9s
+[48/51] c709d97fa372 ratio_grid         p50k_base/fixed_u16/zstd_12/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.3814x  1,270,275,277B  38.482MB/s  rss=5109.96MB  156.0s
+[49/51] bddcdb4c0560 ratio_grid         p50k_base/fixed_u16/zstd_22_long/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 4.0001x  1,073,779,078B  5.596MB/s  rss=9065.39MB  782.3s
+[50/51] 78cf1b736000 ratio_grid         p50k_base/fixed_u16/gzip_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.1002x  1,385,469,940B  12.081MB/s  rss=3968.16MB  398.1s
+[51/51] 40ca0fa75db4 ratio_grid         p50k_base/fixed_u16/bz2_9/subprocess_cli/library_batch c=2M b=128 t=20
+        -> 3.4218x  1,255,274,640B  19.438MB/s  rss=4018.87MB  335.2s
+
+sweep complete: 51 verified, 0 failed, in 312.0 min
+
+################################################################
+# analysis (all four tiers -- THE CURVE)
+# 2026-08-16 21:10:39
+################################################################
+wrote ./report/results.csv
+wrote ./report/summary.md
+wrote ./report/ratio_vs_corpus_size.png
+wrote ./report/ratio_gap_vs_corpus_size.png
+
+308/308 rows round-trip verified across tiers: 64MB, 256MB, 1GB, 4GB
+
+################################################################
+# 256MB / performance OFAT
+# 2026-08-16 21:10:40
+################################################################
+pre-sweep packing property test (handoff 8.3) ...
+LEB128/fixed_u16 property test (numpy=True) ...
+  leb128     OK  (820 assertions, 20,000 random ids, range 0..2,097,151)
+  fixed_u16  OK  (618 assertions, 20,000 random ids, range 0..65,535)
+  total 1,438 assertions passed
+
+corpus     256MB (268,504,786 bytes, sha256=834ee677b7773562...)
+profile    full
+results    ./results/sweep_256mb.jsonl
+cells      151 planned, 77 dropped by filtering
+             dropped   32x: packing=raw_utf8 is only valid with tokenizer=none
+             dropped    8x: tokenizer=none has no token ids to pack as leb128
+             dropped    8x: tokenizer=none has no token ids to pack as fixed_u16
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; o200k_base has 200019
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; cl100k_base has 100277
+             dropped    5x: backend=lzma_tuned_lp1pb1 asserts a fixed 2-byte period; only meaningful with packing=fixed_u16
+             dropped    4x: tokenization_layout=manual_pool is meaningless with tokenizer=none (no tokenization step)
+             dropped    4x: tokenization_layout=process_pool is meaningless with tokenizer=none (no tokenization step)
+           55 already done and verified -> 96 to run
+
+--------------------------------------------------------------------------
+PRE-FLIGHT ESTIMATE (handoff Section 8.4)
+  cells to run                 96
+  cells with no prior timing   0 (excluded from the time estimate)
+  estimated wall clock         1.82 h (109 min), from 308 prior verified rows
+  peak extra disk (1 archive)  77.2MB
+  free disk                    438.7GB
+--------------------------------------------------------------------------
+[1/96] bbe67b803e86 ofat_transport     o200k_base/leb128/lzma_extreme/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.8172x  70,341,565B  2.299MB/s  rss=6048.44MB  119.5s
+[2/96] ef8e99ad2a87 ofat_chunk_size    o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=1M b=128 t=20
+
+################################################################
+# 64MB / full matrix
+# 2026-08-16 21:14:13
+################################################################
+pre-sweep packing property test (handoff 8.3) ...
+LEB128/fixed_u16 property test (numpy=True) ...
+  leb128     OK  (820 assertions, 20,000 random ids, range 0..2,097,151)
+  fixed_u16  OK  (618 assertions, 20,000 random ids, range 0..65,535)
+  total 1,438 assertions passed
+
+corpus     64MB (67,217,635 bytes, sha256=ebc84b4c6c085759...)
+profile    full
+results    ./results/sweep_64mb.jsonl
+cells      151 planned, 77 dropped by filtering
+             dropped   32x: packing=raw_utf8 is only valid with tokenizer=none
+             dropped    8x: tokenizer=none has no token ids to pack as leb128
+             dropped    8x: tokenizer=none has no token ids to pack as fixed_u16
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; o200k_base has 200019
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; cl100k_base has 100277
+             dropped    5x: backend=lzma_tuned_lp1pb1 asserts a fixed 2-byte period; only meaningful with packing=fixed_u16
+             dropped    4x: tokenization_layout=manual_pool is meaningless with tokenizer=none (no tokenization step)
+             dropped    4x: tokenization_layout=process_pool is meaningless with tokenizer=none (no tokenization step)
+           151 already done and verified -> 0 to run
+
+nothing to do
+
+################################################################
+# 256MB / ratio grid
+# 2026-08-16 21:14:14
+################################################################
+pre-sweep packing property test (handoff 8.3) ...
+LEB128/fixed_u16 property test (numpy=True) ...
+  leb128     OK  (820 assertions, 20,000 random ids, range 0..2,097,151)
+  fixed_u16  OK  (618 assertions, 20,000 random ids, range 0..65,535)
+  total 1,438 assertions passed
+
+corpus     256MB (268,504,786 bytes, sha256=834ee677b7773562...)
+profile    full
+results    ./results/sweep_256mb.jsonl
+cells      51 planned, 69 dropped by filtering
+             dropped   32x: packing=raw_utf8 is only valid with tokenizer=none
+             dropped    8x: tokenizer=none has no token ids to pack as leb128
+             dropped    8x: tokenizer=none has no token ids to pack as fixed_u16
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; o200k_base has 200019
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; cl100k_base has 100277
+             dropped    5x: backend=lzma_tuned_lp1pb1 asserts a fixed 2-byte period; only meaningful with packing=fixed_u16
+           56 already done and verified -> 0 to run
+
+nothing to do
+
+################################################################
+# 1GB / ratio grid
+# 2026-08-16 21:14:15
+################################################################
+pre-sweep packing property test (handoff 8.3) ...
+LEB128/fixed_u16 property test (numpy=True) ...
+  leb128     OK  (820 assertions, 20,000 random ids, range 0..2,097,151)
+  fixed_u16  OK  (618 assertions, 20,000 random ids, range 0..65,535)
+  total 1,438 assertions passed
+
+corpus     1GB (1,075,001,664 bytes, sha256=dfd7ec8b626488fc...)
+profile    full
+results    ./results/sweep_1gb.jsonl
+cells      51 planned, 69 dropped by filtering
+             dropped   32x: packing=raw_utf8 is only valid with tokenizer=none
+             dropped    8x: tokenizer=none has no token ids to pack as leb128
+             dropped    8x: tokenizer=none has no token ids to pack as fixed_u16
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; o200k_base has 200019
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; cl100k_base has 100277
+             dropped    5x: backend=lzma_tuned_lp1pb1 asserts a fixed 2-byte period; only meaningful with packing=fixed_u16
+           51 already done and verified -> 0 to run
+
+nothing to do
+
+################################################################
+# 4GB / ratio grid
+# 2026-08-16 21:14:15
+################################################################
+pre-sweep packing property test (handoff 8.3) ...
+LEB128/fixed_u16 property test (numpy=True) ...
+  leb128     OK  (820 assertions, 20,000 random ids, range 0..2,097,151)
+  fixed_u16  OK  (618 assertions, 20,000 random ids, range 0..65,535)
+  total 1,438 assertions passed
+
+corpus     4GB (4,295,254,520 bytes, sha256=d997553b9ebcc27d...)
+profile    full
+results    ./results/sweep_4gb.jsonl
+cells      51 planned, 69 dropped by filtering
+             dropped   32x: packing=raw_utf8 is only valid with tokenizer=none
+             dropped    8x: tokenizer=none has no token ids to pack as leb128
+             dropped    8x: tokenizer=none has no token ids to pack as fixed_u16
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; o200k_base has 200019
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; cl100k_base has 100277
+             dropped    5x: backend=lzma_tuned_lp1pb1 asserts a fixed 2-byte period; only meaningful with packing=fixed_u16
+           51 already done and verified -> 0 to run
+
+nothing to do
+
+################################################################
+# analysis (all four tiers -- THE CURVE)
+# 2026-08-16 21:14:16
+################################################################
+wrote ./report/results.csv
+wrote ./report/summary.md
+wrote ./report/ratio_vs_corpus_size.png
+wrote ./report/ratio_gap_vs_corpus_size.png
+
+309/309 rows round-trip verified across tiers: 64MB, 256MB, 1GB, 4GB
+
+################################################################
+# 1GB / threads-only OFAT
+# 2026-08-16 21:14:17
+################################################################
+pre-sweep packing property test (handoff 8.3) ...
+LEB128/fixed_u16 property test (numpy=True) ...
+  leb128     OK  (820 assertions, 20,000 random ids, range 0..2,097,151)
+  fixed_u16  OK  (618 assertions, 20,000 random ids, range 0..65,535)
+  total 1,438 assertions passed
+
+corpus     1GB (1,075,001,664 bytes, sha256=dfd7ec8b626488fc...)
+profile    full
+results    ./results/sweep_1gb.jsonl
+cells      75 planned, 69 dropped by filtering
+             dropped   32x: packing=raw_utf8 is only valid with tokenizer=none
+             dropped    8x: tokenizer=none has no token ids to pack as leb128
+             dropped    8x: tokenizer=none has no token ids to pack as fixed_u16
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; o200k_base has 200019
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; cl100k_base has 100277
+             dropped    5x: backend=lzma_tuned_lp1pb1 asserts a fixed 2-byte period; only meaningful with packing=fixed_u16
+           51 already done and verified -> 24 to run
+
+--------------------------------------------------------------------------
+PRE-FLIGHT ESTIMATE (handoff Section 8.4)
+  cells to run                 24
+  cells with no prior timing   0 (excluded from the time estimate)
+  estimated wall clock         2.10 h (126 min), from 309 prior verified rows
+  peak extra disk (1 archive)  308.9MB
+  free disk                    438.7GB
+--------------------------------------------------------------------------
+[1/24] b704783933d4 ofat_threads       o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.8787x  277,154,257B  1.949MB/s  rss=6652.28MB  555.2s
+[2/24] e2b5bfab2fcd ofat_threads       o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.8368x  280,180,985B  7.089MB/s  rss=7300.46MB  166.4s
+[3/24] 0266521a27c4 ofat_threads       o200k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.8179x  281,567,814B  2.269MB/s  rss=6397.51MB  480.5s
+[4/24] 9eb827b7d0fb ofat_threads       o200k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.7695x  285,186,422B  8.705MB/s  rss=7895.0MB  139.5s
+[5/24] aae2589d2156 ofat_threads       o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.6840x  291,803,435B  3.14MB/s  rss=6488.11MB  347.4s
+[6/24] 344feb66d4b2 ofat_threads       o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.6840x  291,803,435B  9.025MB/s  rss=6746.62MB  136.0s
+[7/24] e794ee6a1104 ofat_threads       o200k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.3779x  318,241,931B  11.417MB/s  rss=6228.28MB  112.3s
+[8/24] 741d961f7d66 ofat_threads       o200k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.3779x  318,241,931B  28.066MB/s  rss=6462.07MB  58.9s
+[9/24] c50de9619f1a ofat_threads       none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.7768x  284,632,043B  0.967MB/s  rss=720.16MB  1069.5s
+[10/24] 26260120b94d ofat_threads       none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.7332x  287,959,027B  3.652MB/s  rss=3482.27MB  283.6s
+[11/24] b6303a49d32b ofat_threads       none/raw_utf8/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.7157x  289,310,828B  1.152MB/s  rss=416.33MB  897.8s
+[12/24] 4a56bbf2cc15 ofat_threads       none/raw_utf8/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.6657x  293,256,292B  4.722MB/s  rss=1901.28MB  219.3s
+[13/24] dc85b60b7e15 ofat_threads       none/raw_utf8/zstd_19/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.5807x  300,219,192B  1.341MB/s  rss=532.51MB  765.8s
+[14/24] e1696bf00566 ofat_threads       none/raw_utf8/zstd_19/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.5807x  300,219,192B  4.445MB/s  rss=975.85MB  231.9s
+[15/24] fba339b8eacc ofat_threads       none/raw_utf8/zstd_12/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.1825x  337,787,664B  19.236MB/s  rss=349.58MB  54.4s
+[16/24] a93f22d842dd ofat_threads       none/raw_utf8/zstd_12/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.1825x  337,787,664B  52.273MB/s  rss=491.67MB  20.6s
+[17/24] d8798223f539 ofat_threads       r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 4.1015x  262,101,876B  1.604MB/s  rss=4559.61MB  660.2s
+[18/24] b05f11e18792 ofat_threads       r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 4.0480x  265,566,924B  5.796MB/s  rss=7272.76MB  190.8s
+[19/24] a9a24d0b2682 ofat_threads       r50k_base/fixed_u16/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 4.0369x  266,294,009B  1.785MB/s  rss=4292.94MB  597.0s
+[20/24] 47e678b14ab7 ofat_threads       r50k_base/fixed_u16/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.9811x  270,029,253B  5.825MB/s  rss=5854.43MB  190.0s
+[21/24] 6c203238dbe0 ofat_threads       r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.7669x  285,382,681B  2.506MB/s  rss=4431.99MB  422.0s
+[22/24] 29f715c1f1bb ofat_threads       r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.7669x  285,382,681B  7.177MB/s  rss=4852.98MB  155.7s
+[23/24] b35905cce16e ofat_threads       r50k_base/fixed_u16/zstd_12/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.3800x  318,051,169B  8.634MB/s  rss=4330.56MB  132.4s
+[24/24] 5d25234b6049 ofat_threads       r50k_base/fixed_u16/zstd_12/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.3800x  318,051,169B  25.237MB/s  rss=4515.45MB  53.5s
+
+sweep complete: 24 verified, 0 failed, in 132.4 min
+
+################################################################
+# analysis
+# 2026-08-16 23:26:44
+################################################################
+wrote ./report/results.csv
+wrote ./report/summary.md
+wrote ./report/ratio_vs_corpus_size.png
+wrote ./report/ratio_gap_vs_corpus_size.png
+
+333/333 rows round-trip verified across tiers: 64MB, 256MB, 1GB, 4GB
+
+################################################################
+# 4GB / threads-only OFAT
+# 2026-08-16 23:26:46
+################################################################
+pre-sweep packing property test (handoff 8.3) ...
+LEB128/fixed_u16 property test (numpy=True) ...
+  leb128     OK  (820 assertions, 20,000 random ids, range 0..2,097,151)
+  fixed_u16  OK  (618 assertions, 20,000 random ids, range 0..65,535)
+  total 1,438 assertions passed
+
+corpus     4GB (4,295,254,520 bytes, sha256=d997553b9ebcc27d...)
+profile    full
+results    ./results/sweep_4gb.jsonl
+cells      75 planned, 69 dropped by filtering
+             dropped   32x: packing=raw_utf8 is only valid with tokenizer=none
+             dropped    8x: tokenizer=none has no token ids to pack as leb128
+             dropped    8x: tokenizer=none has no token ids to pack as fixed_u16
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; o200k_base has 200019
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; cl100k_base has 100277
+             dropped    5x: backend=lzma_tuned_lp1pb1 asserts a fixed 2-byte period; only meaningful with packing=fixed_u16
+           51 already done and verified -> 24 to run
+
+--------------------------------------------------------------------------
+PRE-FLIGHT ESTIMATE (handoff Section 8.4)
+  cells to run                 24
+  cells with no prior timing   0 (excluded from the time estimate)
+  estimated wall clock         7.87 h (472 min), from 333 prior verified rows
+  peak extra disk (1 archive)  1.2GB
+  free disk                    438.6GB
+--------------------------------------------------------------------------
+[1/24] a50d94d69774 ofat_threads       o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.8791x  1,107,275,417B  1.716MB/s  rss=6702.06MB  2508.1s
+[2/24] f0d724fb224f ofat_threads       o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.8278x  1,122,129,165B  7.935MB/s  rss=9647.52MB  602.4s
+[3/24] e884e58675c4 ofat_threads       o200k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.8123x  1,126,691,758B  2.25MB/s  rss=6439.75MB  1933.8s
+[4/24] 784ba4f180d4 ofat_threads       o200k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.7594x  1,142,531,350B  9.145MB/s  rss=7909.01MB  533.9s
+[5/24] 9b81d7018658 ofat_threads       o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.6765x  1,168,285,144B  3.288MB/s  rss=6557.95MB  1328.0s
+[6/24] d113fb45536c ofat_threads       o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.6765x  1,168,285,144B  10.622MB/s  rss=7082.13MB  467.9s
+[7/24] 4cbf8cef156a ofat_threads       o200k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.3700x  1,274,573,904B  12.179MB/s  rss=6353.6MB  417.8s
+[8/24] a4d21ed825fb ofat_threads       o200k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.3700x  1,274,573,904B  30.997MB/s  rss=6504.01MB  214.6s
+[9/24] 4b1f4bb03802 ofat_threads       none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.7701x  1,139,280,519B  1.068MB/s  rss=720.26MB  3869.5s
+[10/24] 074299675b91 ofat_threads       none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.7221x  1,153,987,139B  4.111MB/s  rss=3527.62MB  1005.1s
+[11/24] 6c3faaa87a49 ofat_threads       none/raw_utf8/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.7064x  1,158,884,852B  1.252MB/s  rss=416.19MB  3301.3s
+[12/24] 6e19519417cc ofat_threads       none/raw_utf8/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.6561x  1,174,814,368B  4.777MB/s  rss=1903.45MB  865.2s
+[13/24] 98b425d91660 ofat_threads       none/raw_utf8/zstd_19/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.5714x  1,202,686,871B  1.558MB/s  rss=532.33MB  2632.2s
+[14/24] 35e152682561 ofat_threads       none/raw_utf8/zstd_19/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.5714x  1,202,686,871B  4.797MB/s  rss=977.27MB  858.1s
+[15/24] 666399dc60c1 ofat_threads       none/raw_utf8/zstd_12/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.1740x  1,353,266,730B  19.581MB/s  rss=349.62MB  213.2s
+[16/24] 895a13dd6632 ofat_threads       none/raw_utf8/zstd_12/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.1740x  1,353,266,730B  52.158MB/s  rss=502.39MB  82.5s
+[17/24] 29a7583791a2 ofat_threads       r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 4.0984x  1,048,037,140B  1.79MB/s  rss=4689.66MB  2366.5s
+[18/24] 2dafab0813ea ofat_threads       r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 4.0454x  1,061,753,144B  7.087MB/s  rss=7604.74MB  628.5s
+[19/24] 8cab7bf72fb4 ofat_threads       r50k_base/fixed_u16/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 4.0284x  1,066,252,857B  1.965MB/s  rss=4383.52MB  2163.4s
+[20/24] cccfab00fb8d ofat_threads       r50k_base/fixed_u16/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.9738x  1,080,894,025B  8.475MB/s  rss=5938.83MB  535.3s
+[21/24] 8c0de6f0d5f1 ofat_threads       r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.7571x  1,143,224,959B  2.931MB/s  rss=4570.88MB  1446.3s
+[22/24] 1266dec5ebeb ofat_threads       r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.7571x  1,143,224,959B  9.353MB/s  rss=4992.45MB  488.0s
+[23/24] 831122de5dec ofat_threads       r50k_base/fixed_u16/zstd_12/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.3722x  1,273,717,709B  9.169MB/s  rss=4337.55MB  495.5s
+[24/24] f87abdebaa50 ofat_threads       r50k_base/fixed_u16/zstd_12/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.3722x  1,273,717,709B  26.827MB/s  rss=4586.35MB  201.3s
+
+sweep complete: 24 verified, 0 failed, in 486.1 min
+
+################################################################
+# analysis
+# 2026-08-17 07:32:52
+################################################################
+wrote ./report/results.csv
+wrote ./report/summary.md
+wrote ./report/ratio_vs_corpus_size.png
+wrote ./report/ratio_gap_vs_corpus_size.png
+
+357/357 rows round-trip verified across tiers: 64MB, 256MB, 1GB, 4GB
+
+################################################################
+# 256MB / full performance OFAT
+# 2026-08-17 07:32:54
+################################################################
+pre-sweep packing property test (handoff 8.3) ...
+LEB128/fixed_u16 property test (numpy=True) ...
+  leb128     OK  (820 assertions, 20,000 random ids, range 0..2,097,151)
+  fixed_u16  OK  (618 assertions, 20,000 random ids, range 0..65,535)
+  total 1,438 assertions passed
+
+corpus     256MB (268,504,786 bytes, sha256=834ee677b7773562...)
+profile    full
+results    ./results/sweep_256mb.jsonl
+cells      151 planned, 77 dropped by filtering
+             dropped   32x: packing=raw_utf8 is only valid with tokenizer=none
+             dropped    8x: tokenizer=none has no token ids to pack as leb128
+             dropped    8x: tokenizer=none has no token ids to pack as fixed_u16
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; o200k_base has 200019
+             dropped    8x: packing=fixed_u16 requires vocab <= 65536; cl100k_base has 100277
+             dropped    5x: backend=lzma_tuned_lp1pb1 asserts a fixed 2-byte period; only meaningful with packing=fixed_u16
+             dropped    4x: tokenization_layout=manual_pool is meaningless with tokenizer=none (no tokenization step)
+             dropped    4x: tokenization_layout=process_pool is meaningless with tokenizer=none (no tokenization step)
+           56 already done and verified -> 95 to run
+
+--------------------------------------------------------------------------
+PRE-FLIGHT ESTIMATE (handoff Section 8.4)
+  cells to run                 95
+  cells with no prior timing   0 (excluded from the time estimate)
+  estimated wall clock         1.76 h (105 min), from 357 prior verified rows
+  peak extra disk (1 archive)  77.2MB
+  free disk                    436.8GB
+--------------------------------------------------------------------------
+[1/95] ef8e99ad2a87 ofat_chunk_size    o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 3.8131x  70,415,573B  2.171MB/s  rss=3049.16MB  123.5s
+[2/95] 2e8e65da6bbc ofat_chunk_size    o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 3.8131x  70,415,573B  2.194MB/s  rss=6095.56MB  122.5s
+[3/95] 795c31c55f9d ofat_batch_chunks  o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 3.8131x  70,415,573B  2.152MB/s  rss=3232.25MB  124.7s
+[4/95] 6a39a5fa1673 ofat_batch_chunks  o200k_base/leb128/lzma_extreme/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 3.8131x  70,415,573B  2.206MB/s  rss=5905.12MB  121.8s
+[5/95] 5a6fd7dcc4f0 ofat_threads       o200k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.7760x  71,107,410B  2.208MB/s  rss=5839.72MB  123.8s
+[6/95] 239b7fe83dfb ofat_threads       o200k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.7467x  71,664,398B  4.388MB/s  rss=5942.77MB  64.0s
+[7/95] bcf57df10628 ofat_layout        o200k_base/leb128/lzma_fast/subprocess_cli/manual_pool c=2M b=128 t=20
+        -> 3.7467x  71,664,398B  4.678MB/s  rss=6037.78MB  60.4s
+[8/95] d225b7ddf057 ofat_layout        o200k_base/leb128/lzma_fast/subprocess_cli/process_pool c=2M b=128 t=20
+        -> 3.7467x  71,664,398B  4.537MB/s  rss=7946.47MB  62.7s
+[9/95] 266c08217d8b ofat_transport     o200k_base/leb128/lzma_fast/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.7760x  71,107,414B  2.459MB/s  rss=6117.88MB  112.2s
+[10/95] 9c91448ae9e9 ofat_chunk_size    o200k_base/leb128/lzma_fast/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 3.7467x  71,664,398B  4.918MB/s  rss=3215.98MB  57.8s
+[11/95] 511da3be9567 ofat_chunk_size    o200k_base/leb128/lzma_fast/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 3.7467x  71,664,398B  4.39MB/s  rss=6035.75MB  64.1s
+[12/95] fb9ef7b9a180 ofat_batch_chunks  o200k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 3.7467x  71,664,398B  4.887MB/s  rss=3209.11MB  58.0s
+[13/95] 6dd109e24eff ofat_batch_chunks  o200k_base/leb128/lzma_fast/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 3.7467x  71,664,398B  4.902MB/s  rss=6060.42MB  57.8s
+[14/95] 6dafc89aff9c ofat_threads       o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.6521x  73,519,826B  2.734MB/s  rss=6069.75MB  99.2s
+[15/95] beb441e8cbef ofat_threads       o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.6521x  73,519,826B  4.801MB/s  rss=5861.89MB  58.9s
+[16/95] 57ea6baa74d3 ofat_layout        o200k_base/leb128/zstd_19/subprocess_cli/manual_pool c=2M b=128 t=20
+        -> 3.6521x  73,519,826B  5.133MB/s  rss=5918.94MB  55.3s
+[17/95] 4b35ca4123f0 ofat_layout        o200k_base/leb128/zstd_19/subprocess_cli/process_pool c=2M b=128 t=20
+        -> 3.6521x  73,519,826B  5.065MB/s  rss=7890.56MB  56.6s
+[18/95] dce6f4760f65 ofat_transport     o200k_base/leb128/zstd_19/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.6521x  73,519,826B  4.971MB/s  rss=5991.37MB  57.7s
+[19/95] 07db0efe284e ofat_chunk_size    o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 3.6521x  73,519,826B  5.124MB/s  rss=3257.89MB  55.5s
+[20/95] a40de657e0e5 ofat_chunk_size    o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 3.6521x  73,519,826B  5.075MB/s  rss=5925.48MB  56.1s
+[21/95] 6677704157b5 ofat_batch_chunks  o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 3.6521x  73,519,826B  4.9MB/s  rss=3260.59MB  57.7s
+[22/95] 378a0605e215 ofat_batch_chunks  o200k_base/leb128/zstd_19/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 3.6521x  73,519,826B  4.882MB/s  rss=5848.05MB  57.9s
+[23/95] 43c0beeef052 ofat_threads       o200k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.3556x  80,017,726B  12.125MB/s  rss=6000.39MB  26.6s
+[24/95] 3d25733bec38 ofat_threads       o200k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.3556x  80,017,726B  24.733MB/s  rss=5823.39MB  15.8s
+[25/95] 8721bcd3b2be ofat_layout        o200k_base/leb128/zstd_12/subprocess_cli/manual_pool c=2M b=128 t=20
+        -> 3.3556x  80,017,726B  30.143MB/s  rss=5942.27MB  14.0s
+[26/95] 694c2ab6854f ofat_layout        o200k_base/leb128/zstd_12/subprocess_cli/process_pool c=2M b=128 t=20
+        -> 3.3556x  80,017,726B  29.34MB/s  rss=7833.39MB  14.8s
+[27/95] c88e5175dceb ofat_transport     o200k_base/leb128/zstd_12/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.3556x  80,017,726B  16.3MB/s  rss=5992.24MB  21.7s
+[28/95] 483c7459d5e8 ofat_chunk_size    o200k_base/leb128/zstd_12/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 3.3556x  80,017,726B  31.656MB/s  rss=3141.88MB  13.5s
+[29/95] 0fe11529c797 ofat_chunk_size    o200k_base/leb128/zstd_12/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 3.3556x  80,017,726B  29.487MB/s  rss=6021.14MB  14.2s
+[30/95] f866975a36fb ofat_batch_chunks  o200k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 3.3556x  80,017,726B  31.19MB/s  rss=3290.36MB  13.7s
+[31/95] 4f8e3aeb1c0b ofat_batch_chunks  o200k_base/leb128/zstd_12/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 3.3556x  80,017,726B  29.597MB/s  rss=5856.48MB  14.1s
+[32/95] 2981b59de72a ofat_threads       none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.7359x  71,871,659B  1.047MB/s  rss=719.52MB  246.8s
+[33/95] 7e02621611e1 ofat_threads       none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.7117x  72,340,347B  2.159MB/s  rss=1731.33MB  119.8s
+[34/95] 44ff1dd12038 ofat_transport     none/raw_utf8/lzma_extreme/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.7359x  71,871,663B  1.095MB/s  rss=716.46MB  236.7s
+[35/95] c3f9852843c6 ofat_chunk_size    none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 3.7117x  72,340,347B  2.152MB/s  rss=1731.36MB  120.3s
+[36/95] d5cad2446ebe ofat_chunk_size    none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 3.7117x  72,340,347B  2.156MB/s  rss=1731.46MB  120.0s
+[37/95] cc7c5d79ed8c ofat_batch_chunks  none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 3.7117x  72,340,347B  2.14MB/s  rss=1731.45MB  120.9s
+[38/95] 7c436ef34c2f ofat_batch_chunks  none/raw_utf8/lzma_extreme/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 3.7117x  72,340,347B  2.157MB/s  rss=1731.55MB  120.0s
+[39/95] c9edbbd58984 ofat_threads       none/raw_utf8/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.6837x  72,889,280B  1.263MB/s  rss=415.63MB  204.8s
+[40/95] fab8b930f896 ofat_threads       none/raw_utf8/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.6451x  73,661,152B  4.562MB/s  rss=1837.49MB  56.9s
+[41/95] b6bbe26fc6e1 ofat_transport     none/raw_utf8/lzma_fast/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.6837x  72,889,284B  1.254MB/s  rss=411.34MB  207.0s
+[42/95] 31b5fb07848c ofat_chunk_size    none/raw_utf8/lzma_fast/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 3.6451x  73,661,152B  4.553MB/s  rss=1860.68MB  57.0s
+[43/95] deeae59b19e3 ofat_chunk_size    none/raw_utf8/lzma_fast/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 3.6451x  73,661,152B  4.543MB/s  rss=1860.71MB  57.2s
+[44/95] 1a70926bc8a1 ofat_batch_chunks  none/raw_utf8/lzma_fast/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 3.6451x  73,661,152B  4.551MB/s  rss=1860.67MB  57.1s
+[45/95] 6b60f66d1e1c ofat_batch_chunks  none/raw_utf8/lzma_fast/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 3.6451x  73,661,152B  4.558MB/s  rss=1860.8MB  57.0s
+[46/95] 986faa7568a9 ofat_threads       none/raw_utf8/zstd_19/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.5557x  75,514,458B  1.55MB/s  rss=458.05MB  165.5s
+[47/95] 083443c919b3 ofat_threads       none/raw_utf8/zstd_19/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.5557x  75,514,458B  4.649MB/s  rss=755.91MB  55.3s
+[48/95] 50d4a8c7a42c ofat_transport     none/raw_utf8/zstd_19/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.5557x  75,514,458B  4.06MB/s  rss=968.57MB  64.8s
+[49/95] 0da207aa8e64 ofat_chunk_size    none/raw_utf8/zstd_19/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 3.5557x  75,514,458B  4.348MB/s  rss=837.24MB  59.2s
+[50/95] 2ccb7604de0d ofat_chunk_size    none/raw_utf8/zstd_19/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 3.5557x  75,514,458B  4.359MB/s  rss=837.18MB  59.0s
+[51/95] 8359950957f1 ofat_batch_chunks  none/raw_utf8/zstd_19/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 3.5557x  75,514,458B  4.318MB/s  rss=836.97MB  59.6s
+[52/95] 3813497d4f26 ofat_batch_chunks  none/raw_utf8/zstd_19/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 3.5557x  75,514,458B  4.409MB/s  rss=837.04MB  58.4s
+[53/95] 9f8a205cdd81 ofat_threads       none/raw_utf8/zstd_12/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.1627x  84,896,172B  19.992MB/s  rss=338.38MB  13.1s
+[54/95] 5b62c0570494 ofat_threads       none/raw_utf8/zstd_12/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.1627x  84,896,172B  51.122MB/s  rss=489.54MB  5.3s
+[55/95] 03324c26a8f1 ofat_transport     none/raw_utf8/zstd_12/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.1627x  84,896,172B  21.697MB/s  rss=903.4MB  13.3s
+[56/95] 9ec93633fc0d ofat_chunk_size    none/raw_utf8/zstd_12/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 3.1627x  84,896,172B  68.316MB/s  rss=754.95MB  4.0s
+[57/95] b0d360cbe83a ofat_chunk_size    none/raw_utf8/zstd_12/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 3.1627x  84,896,172B  66.812MB/s  rss=755.25MB  4.1s
+[58/95] ce60e191139d ofat_batch_chunks  none/raw_utf8/zstd_12/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 3.1627x  84,896,172B  66.336MB/s  rss=755.11MB  4.2s
+[59/95] cfd00222354c ofat_batch_chunks  none/raw_utf8/zstd_12/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 3.1627x  84,896,172B  65.822MB/s  rss=755.12MB  4.2s
+[60/95] bb3c7d3c800e ofat_threads       r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 4.0434x  66,405,748B  1.85MB/s  rss=4583.79MB  143.5s
+[61/95] b432078a6228 ofat_threads       r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 4.0152x  66,872,072B  2.255MB/s  rss=4082.48MB  116.9s
+[62/95] 855680c012f7 ofat_layout        r50k_base/fixed_u16/lzma_extreme/subprocess_cli/manual_pool c=2M b=128 t=20
+        -> 4.0152x  66,872,072B  2.331MB/s  rss=3963.2MB  113.2s
+[63/95] 19bb022e8a19 ofat_layout        r50k_base/fixed_u16/lzma_extreme/subprocess_cli/process_pool c=2M b=128 t=20
+        -> 4.0152x  66,872,072B  2.34MB/s  rss=4897.75MB  113.1s
+[64/95] 996d75aa600d ofat_transport     r50k_base/fixed_u16/lzma_extreme/in_process_binding/library_batch c=2M b=128 t=20
+        -> 4.0434x  66,405,752B  2.057MB/s  rss=4649.96MB  130.1s
+[65/95] 14407b971b8a ofat_chunk_size    r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 4.0152x  66,872,072B  2.329MB/s  rss=2077.63MB  113.3s
+[66/95] b9bbb7b6274c ofat_chunk_size    r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 4.0152x  66,872,072B  2.329MB/s  rss=4106.32MB  113.4s
+[67/95] 789ad983deaf ofat_batch_chunks  r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 4.0152x  66,872,072B  2.235MB/s  rss=2185.17MB  117.9s
+[68/95] 3717822b2bbb ofat_batch_chunks  r50k_base/fixed_u16/lzma_extreme/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 4.0152x  66,872,072B  2.263MB/s  rss=4132.5MB  116.5s
+[69/95] 1b02b4e3f4bb ofat_threads       r50k_base/fixed_u16/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.9968x  67,179,293B  2.015MB/s  rss=4279.86MB  132.2s
+[70/95] c5e59642d4f4 ofat_threads       r50k_base/fixed_u16/lzma_fast/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.9534x  67,917,689B  4.528MB/s  rss=4186.6MB  59.9s
+[71/95] 14c6f8870948 ofat_layout        r50k_base/fixed_u16/lzma_fast/subprocess_cli/manual_pool c=2M b=128 t=20
+        -> 3.9534x  67,917,689B  4.894MB/s  rss=4007.32MB  55.7s
+[72/95] 97a785e74d3d ofat_layout        r50k_base/fixed_u16/lzma_fast/subprocess_cli/process_pool c=2M b=128 t=20
+        -> 3.9534x  67,917,689B  4.92MB/s  rss=5054.47MB  55.6s
+[73/95] ff1b8ee47ed0 ofat_transport     r50k_base/fixed_u16/lzma_fast/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.9968x  67,179,297B  2.281MB/s  rss=4347.05MB  118.0s
+[74/95] 422aeeca9afe ofat_chunk_size    r50k_base/fixed_u16/lzma_fast/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 3.9534x  67,917,689B  4.979MB/s  rss=2221.61MB  54.7s
+[75/95] b07cd719c55f ofat_chunk_size    r50k_base/fixed_u16/lzma_fast/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 3.9534x  67,917,689B  4.813MB/s  rss=4016.87MB  56.6s
+[76/95] 98f0de8a6bd1 ofat_batch_chunks  r50k_base/fixed_u16/lzma_fast/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 3.9534x  67,917,689B  4.989MB/s  rss=2235.59MB  54.7s
+[77/95] 5bd431af9c52 ofat_batch_chunks  r50k_base/fixed_u16/lzma_fast/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 3.9534x  67,917,689B  4.895MB/s  rss=4221.25MB  55.7s
+[78/95] 7424f07ab123 ofat_threads       r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.7370x  71,850,344B  2.35MB/s  rss=4217.81MB  112.2s
+[79/95] 247db6daf39a ofat_threads       r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.7370x  71,850,344B  4.863MB/s  rss=4027.14MB  55.9s
+[80/95] 83521fd0a785 ofat_layout        r50k_base/fixed_u16/zstd_19/subprocess_cli/manual_pool c=2M b=128 t=20
+        -> 3.7370x  71,850,344B  5.165MB/s  rss=4012.86MB  52.8s
+[81/95] 994136d44dc5 ofat_layout        r50k_base/fixed_u16/zstd_19/subprocess_cli/process_pool c=2M b=128 t=20
+        -> 3.7370x  71,850,344B  5.612MB/s  rss=5020.88MB  49.0s
+[82/95] d08ae3673490 ofat_transport     r50k_base/fixed_u16/zstd_19/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.7370x  71,850,344B  4.713MB/s  rss=4054.34MB  58.2s
+[83/95] 2ff7a8f9819b ofat_chunk_size    r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 3.7370x  71,850,344B  4.671MB/s  rss=2233.3MB  58.2s
+[84/95] 9aad343d10c6 ofat_chunk_size    r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 3.7370x  71,850,344B  5.092MB/s  rss=4189.19MB  53.6s
+[85/95] 7476ec259c78 ofat_batch_chunks  r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 3.7370x  71,850,344B  5.182MB/s  rss=2265.96MB  52.8s
+[86/95] 0596dc0b97bf ofat_batch_chunks  r50k_base/fixed_u16/zstd_19/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 3.7370x  71,850,344B  5.122MB/s  rss=4091.88MB  53.2s
+[87/95] 185ecd719642 ofat_threads       r50k_base/fixed_u16/zstd_12/subprocess_cli/library_batch c=2M b=128 t=1
+        -> 3.3604x  79,903,208B  10.238MB/s  rss=4132.5MB  28.2s
+[88/95] a39810727f4c ofat_threads       r50k_base/fixed_u16/zstd_12/subprocess_cli/library_batch c=2M b=128 t=4
+        -> 3.3604x  79,903,208B  22.531MB/s  rss=4045.63MB  14.5s
+[89/95] ee8763849751 ofat_layout        r50k_base/fixed_u16/zstd_12/subprocess_cli/manual_pool c=2M b=128 t=20
+        -> 3.3604x  79,903,208B  31.162MB/s  rss=3982.89MB  11.4s
+[90/95] 8e675d562767 ofat_layout        r50k_base/fixed_u16/zstd_12/subprocess_cli/process_pool c=2M b=128 t=20
+        -> 3.3604x  79,903,208B  33.147MB/s  rss=4953.39MB  11.5s
+[91/95] 5842b7d03af6 ofat_transport     r50k_base/fixed_u16/zstd_12/in_process_binding/library_batch c=2M b=128 t=20
+        -> 3.3604x  79,903,208B  16.088MB/s  rss=3988.74MB  19.6s
+[92/95] c99f4da1be34 ofat_chunk_size    r50k_base/fixed_u16/zstd_12/subprocess_cli/library_batch c=1M b=128 t=20
+        -> 3.3604x  79,903,208B  32.783MB/s  rss=2153.04MB  11.1s
+[93/95] a29be3380928 ofat_chunk_size    r50k_base/fixed_u16/zstd_12/subprocess_cli/library_batch c=4M b=128 t=20
+        -> 3.3604x  79,903,208B  31.618MB/s  rss=4135.74MB  11.4s
+[94/95] d98f6b9856d4 ofat_batch_chunks  r50k_base/fixed_u16/zstd_12/subprocess_cli/library_batch c=2M b=64 t=20
+        -> 3.3604x  79,903,208B  32.005MB/s  rss=2275.74MB  11.3s
+[95/95] 45fcf0363912 ofat_batch_chunks  r50k_base/fixed_u16/zstd_12/subprocess_cli/library_batch c=2M b=256 t=20
+        -> 3.3604x  79,903,208B  32.216MB/s  rss=4046.82MB  11.3s
+
+sweep complete: 95 verified, 0 failed, in 110.4 min
+
+################################################################
+# final analysis
+# 2026-08-17 09:23:19
+################################################################
+wrote ./report/results.csv
+wrote ./report/summary.md
+wrote ./report/ratio_vs_corpus_size.png
+wrote ./report/ratio_gap_vs_corpus_size.png
+
+452/452 rows round-trip verified across tiers: 64MB, 256MB, 1GB, 4GB
+
+################################################################
+# ALL STAGES COMPLETE
+# 2026-08-17 09:23:21
+################################################################

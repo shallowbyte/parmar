@@ -1,0 +1,57 @@
+﻿==============================================================================
+Boundary-safety differential test (handoff Section 8.2)
+==============================================================================
+corpus      ./corpus/pg19_64mb.txt (67,217,635 bytes)
+sample      67,108,864 bytes
+tokenizers  o200k_base, cl100k_base, r50k_base, p50k_base
+chunk sizes 1MB, 2MB, 4MB
+property    tokenize(whole) == concat(tokenize(chunk) for each chunk)
+
+  o200k_base (vocab=200,019)
+    unsplit reference: 16,020,945 tokens in 8.7s
+    1MB          16,020,945 tokens /   64 chunks   IDENTICAL   (split 10.8s, unsafe cuts: 0)
+    2MB          16,020,945 tokens /   32 chunks   IDENTICAL   (split 11.2s, unsafe cuts: 0)
+    4MB          16,020,945 tokens /   16 chunks   IDENTICAL   (split 11.0s, unsafe cuts: 0)
+    adversarial: 12/13 constructs token-identical across 180 boundaries at 4096B chunks
+      (known limitation) long digit run (6 unsafe cuts, but tokens happened to match)
+      (known limitation) no-whitespace letter run (49 unsafe cuts, but tokens happened to match)
+      (known limitation) punctuation storm (7 unsafe cuts -> 28000 vs 28001 tokens)
+      (known limitation) multi-byte run (6 unsafe cuts, but tokens happened to match)
+
+  cl100k_base (vocab=100,277)
+    unsplit reference: 16,186,217 tokens in 14.4s
+    1MB          16,186,217 tokens /   64 chunks   IDENTICAL   (split 14.5s, unsafe cuts: 0)
+    2MB          16,186,217 tokens /   32 chunks   IDENTICAL   (split 14.5s, unsafe cuts: 0)
+    4MB          16,186,217 tokens /   16 chunks   IDENTICAL   (split 14.2s, unsafe cuts: 0)
+    adversarial: 12/13 constructs token-identical across 180 boundaries at 4096B chunks
+      (known limitation) long digit run (6 unsafe cuts, but tokens happened to match)
+      (known limitation) no-whitespace letter run (49 unsafe cuts, but tokens happened to match)
+      (known limitation) punctuation storm (7 unsafe cuts -> 24000 vs 24002 tokens)
+      (known limitation) multi-byte run (6 unsafe cuts, but tokens happened to match)
+
+  r50k_base (vocab=50,257)
+    unsplit reference: 18,796,833 tokens in 14.2s
+    1MB          18,796,833 tokens /   64 chunks   IDENTICAL   (split 15.1s, unsafe cuts: 0)
+    2MB          18,796,833 tokens /   32 chunks   IDENTICAL   (split 14.9s, unsafe cuts: 0)
+    4MB          18,796,833 tokens /   16 chunks   IDENTICAL   (split 14.9s, unsafe cuts: 0)
+    adversarial: 11/13 constructs token-identical across 180 boundaries at 4096B chunks
+      (known limitation) long digit run (6 unsafe cuts -> 19999 vs 19995 tokens)
+      (known limitation) no-whitespace letter run (49 unsafe cuts, but tokens happened to match)
+      (known limitation) punctuation storm (7 unsafe cuts -> 24000 vs 24003 tokens)
+      (known limitation) multi-byte run (6 unsafe cuts, but tokens happened to match)
+
+  p50k_base (vocab=50,281)
+    unsplit reference: 18,172,070 tokens in 14.3s
+    1MB          18,172,070 tokens /   64 chunks   IDENTICAL   (split 14.9s, unsafe cuts: 0)
+    2MB          18,172,070 tokens /   32 chunks   IDENTICAL   (split 14.7s, unsafe cuts: 0)
+    4MB          18,172,070 tokens /   16 chunks   IDENTICAL   (split 14.8s, unsafe cuts: 0)
+    adversarial: 11/13 constructs token-identical across 180 boundaries at 4096B chunks
+      (known limitation) long digit run (6 unsafe cuts -> 19999 vs 19995 tokens)
+      (known limitation) no-whitespace letter run (49 unsafe cuts, but tokens happened to match)
+      (known limitation) punctuation storm (7 unsafe cuts -> 24000 vs 24003 tokens)
+      (known limitation) multi-byte run (6 unsafe cuts, but tokens happened to match)
+
+==============================================================================
+16/16 checks identical
+RESULT: PASS -- chunk-boundary splitting is token-identical for every tokenizer x chunk-size combination run.
+The sweep may proceed.

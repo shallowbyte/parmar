@@ -1,0 +1,100 @@
+﻿
+building up to 4GB (4,294,967,296 bytes) in one pass; checkpoints at: 256MB, 1GB, 4GB
+fetching authoritative file list ...
+  28,602 documents in the pg19 train split
+  shuffled with fixed seed 20240517
+         4.2 MB / 11 docs  (0.39 MB/s)  next checkpoint: 256MB at 256 MB
+        87.0 MB / 236 docs  (3.23 MB/s)  next checkpoint: 256MB at 256 MB
+       167.0 MB / 428 docs  (4.21 MB/s)  next checkpoint: 256MB at 256 MB
+       168.9 MB / 430 docs  (2.69 MB/s)  next checkpoint: 256MB at 256 MB
+       226.7 MB / 569 docs  (3.00 MB/s)  next checkpoint: 256MB at 256 MB
+
+  [OK] 256MB  268,504,786 bytes, 640 docs, sha256=834ee677b7773562...
+       302.3 MB / 772 docs  (3.45 MB/s)  next checkpoint: 1GB at 1024 MB
+       341.0 MB / 863 docs  (3.49 MB/s)  next checkpoint: 1GB at 1024 MB
+       387.8 MB / 988 docs  (3.60 MB/s)  next checkpoint: 1GB at 1024 MB
+       449.6 MB / 1,140 docs  (3.82 MB/s)  next checkpoint: 1GB at 1024 MB
+       504.1 MB / 1,297 docs  (3.45 MB/s)  next checkpoint: 1GB at 1024 MB
+       559.5 MB / 1,450 docs  (3.54 MB/s)  next checkpoint: 1GB at 1024 MB
+       583.2 MB / 1,509 docs  (3.25 MB/s)  next checkpoint: 1GB at 1024 MB
+       635.4 MB / 1,639 docs  (3.35 MB/s)  next checkpoint: 1GB at 1024 MB
+       689.4 MB / 1,788 docs  (3.45 MB/s)  next checkpoint: 1GB at 1024 MB
+       752.7 MB / 1,943 docs  (3.57 MB/s)  next checkpoint: 1GB at 1024 MB
+       793.9 MB / 2,054 docs  (3.51 MB/s)  next checkpoint: 1GB at 1024 MB
+       873.8 MB / 2,257 docs  (3.70 MB/s)  next checkpoint: 1GB at 1024 MB
+       930.8 MB / 2,393 docs  (3.77 MB/s)  next checkpoint: 1GB at 1024 MB
+       957.9 MB / 2,466 docs  (2.22 MB/s)  next checkpoint: 1GB at 1024 MB
+      1008.5 MB / 2,600 docs  (2.28 MB/s)  next checkpoint: 1GB at 1024 MB
+
+  [OK] 1GB    1,075,001,664 bytes, 2,639 docs, sha256=dfd7ec8b626488fc...
+      1091.5 MB / 2,811 docs  (2.41 MB/s)  next checkpoint: 4GB at 4096 MB
+      1118.9 MB / 2,893 docs  (2.40 MB/s)  next checkpoint: 4GB at 4096 MB
+      1196.7 MB / 3,066 docs  (2.51 MB/s)  next checkpoint: 4GB at 4096 MB
+      1239.7 MB / 3,169 docs  (2.52 MB/s)  next checkpoint: 4GB at 4096 MB
+      1296.7 MB / 3,318 docs  (2.58 MB/s)  next checkpoint: 4GB at 4096 MB
+      1349.7 MB / 3,461 docs  (2.63 MB/s)  next checkpoint: 4GB at 4096 MB
+      1410.6 MB / 3,628 docs  (2.70 MB/s)  next checkpoint: 4GB at 4096 MB
+      1428.5 MB / 3,683 docs  (2.68 MB/s)  next checkpoint: 4GB at 4096 MB
+      1493.2 MB / 3,855 docs  (2.74 MB/s)  next checkpoint: 4GB at 4096 MB
+      1516.9 MB / 3,918 docs  (2.74 MB/s)  next checkpoint: 4GB at 4096 MB
+      1586.9 MB / 4,103 docs  (2.79 MB/s)  next checkpoint: 4GB at 4096 MB
+      1618.9 MB / 4,184 docs  (2.75 MB/s)  next checkpoint: 4GB at 4096 MB
+      1686.9 MB / 4,346 docs  (2.82 MB/s)  next checkpoint: 4GB at 4096 MB
+      1746.2 MB / 4,492 docs  (2.86 MB/s)  next checkpoint: 4GB at 4096 MB
+      1797.5 MB / 4,636 docs  (2.90 MB/s)  next checkpoint: 4GB at 4096 MB
+      1831.1 MB / 4,730 docs  (2.90 MB/s)  next checkpoint: 4GB at 4096 MB
+      1879.2 MB / 4,865 docs  (2.93 MB/s)  next checkpoint: 4GB at 4096 MB
+      1928.1 MB / 4,984 docs  (2.95 MB/s)  next checkpoint: 4GB at 4096 MB
+      1956.4 MB / 5,055 docs  (2.94 MB/s)  next checkpoint: 4GB at 4096 MB
+      2011.0 MB / 5,223 docs  (2.98 MB/s)  next checkpoint: 4GB at 4096 MB
+      2056.5 MB / 5,334 docs  (2.99 MB/s)  next checkpoint: 4GB at 4096 MB
+      2086.5 MB / 5,402 docs  (2.97 MB/s)  next checkpoint: 4GB at 4096 MB
+      2143.2 MB / 5,542 docs  (3.01 MB/s)  next checkpoint: 4GB at 4096 MB
+      2174.9 MB / 5,615 docs  (2.97 MB/s)  next checkpoint: 4GB at 4096 MB
+      2235.9 MB / 5,769 docs  (3.01 MB/s)  next checkpoint: 4GB at 4096 MB
+      2300.1 MB / 5,963 docs  (2.98 MB/s)  next checkpoint: 4GB at 4096 MB
+      2357.1 MB / 6,103 docs  (3.01 MB/s)  next checkpoint: 4GB at 4096 MB
+      2411.9 MB / 6,238 docs  (3.03 MB/s)  next checkpoint: 4GB at 4096 MB
+      2456.0 MB / 6,340 docs  (3.04 MB/s)  next checkpoint: 4GB at 4096 MB
+      2513.5 MB / 6,484 docs  (3.07 MB/s)  next checkpoint: 4GB at 4096 MB
+      2571.4 MB / 6,653 docs  (3.11 MB/s)  next checkpoint: 4GB at 4096 MB
+      2620.6 MB / 6,793 docs  (3.11 MB/s)  next checkpoint: 4GB at 4096 MB
+      2671.3 MB / 6,924 docs  (3.13 MB/s)  next checkpoint: 4GB at 4096 MB
+      2732.8 MB / 7,087 docs  (3.15 MB/s)  next checkpoint: 4GB at 4096 MB
+      2791.8 MB / 7,222 docs  (3.18 MB/s)  next checkpoint: 4GB at 4096 MB
+      2825.9 MB / 7,310 docs  (3.14 MB/s)  next checkpoint: 4GB at 4096 MB
+      2887.8 MB / 7,456 docs  (3.17 MB/s)  next checkpoint: 4GB at 4096 MB
+      2958.8 MB / 7,640 docs  (3.20 MB/s)  next checkpoint: 4GB at 4096 MB
+      3021.1 MB / 7,798 docs  (3.24 MB/s)  next checkpoint: 4GB at 4096 MB
+      3060.2 MB / 7,893 docs  (3.23 MB/s)  next checkpoint: 4GB at 4096 MB
+      3093.1 MB / 7,976 docs  (3.23 MB/s)  next checkpoint: 4GB at 4096 MB
+      3093.6 MB / 7,978 docs  (3.19 MB/s)  next checkpoint: 4GB at 4096 MB
+      3157.5 MB / 8,122 docs  (3.22 MB/s)  next checkpoint: 4GB at 4096 MB
+      3213.3 MB / 8,259 docs  (3.24 MB/s)  next checkpoint: 4GB at 4096 MB
+      3275.9 MB / 8,429 docs  (3.26 MB/s)  next checkpoint: 4GB at 4096 MB
+      3323.2 MB / 8,562 docs  (3.27 MB/s)  next checkpoint: 4GB at 4096 MB
+      3381.1 MB / 8,708 docs  (3.30 MB/s)  next checkpoint: 4GB at 4096 MB
+      3408.0 MB / 8,780 docs  (3.29 MB/s)  next checkpoint: 4GB at 4096 MB
+      3469.7 MB / 8,937 docs  (3.31 MB/s)  next checkpoint: 4GB at 4096 MB
+      3513.5 MB / 9,058 docs  (3.32 MB/s)  next checkpoint: 4GB at 4096 MB
+      3567.4 MB / 9,179 docs  (3.34 MB/s)  next checkpoint: 4GB at 4096 MB
+      3598.2 MB / 9,278 docs  (3.34 MB/s)  next checkpoint: 4GB at 4096 MB
+      3676.6 MB / 9,468 docs  (3.38 MB/s)  next checkpoint: 4GB at 4096 MB
+      3720.4 MB / 9,609 docs  (3.38 MB/s)  next checkpoint: 4GB at 4096 MB
+      3774.4 MB / 9,756 docs  (3.39 MB/s)  next checkpoint: 4GB at 4096 MB
+      3827.4 MB / 9,917 docs  (3.41 MB/s)  next checkpoint: 4GB at 4096 MB
+      3876.9 MB / 10,067 docs  (3.42 MB/s)  next checkpoint: 4GB at 4096 MB
+      3915.7 MB / 10,173 docs  (3.42 MB/s)  next checkpoint: 4GB at 4096 MB
+      3989.1 MB / 10,370 docs  (3.44 MB/s)  next checkpoint: 4GB at 4096 MB
+      4016.7 MB / 10,458 docs  (3.44 MB/s)  next checkpoint: 4GB at 4096 MB
+      4022.8 MB / 10,472 docs  (3.40 MB/s)  next checkpoint: 4GB at 4096 MB
+      4086.3 MB / 10,602 docs  (3.42 MB/s)  next checkpoint: 4GB at 4096 MB
+
+  [OK] 4GB    4,295,254,520 bytes, 10,629 docs, sha256=d997553b9ebcc27d...
+
+done: 4096.3 MB, 10,629 documents used, 0 skipped, 10,629 seen, in 20.0 min (3.41 MB/s)
+
+verification:
+  256MB  OK  268,504,786 bytes, 640 docs, sha256=834ee677b7773562...  utf8=True ends_at_doc_boundary=True
+  1GB    OK  1,075,001,664 bytes, 2,639 docs, sha256=dfd7ec8b626488fc...  utf8=True ends_at_doc_boundary=True
+  4GB    OK  4,295,254,520 bytes, 10,629 docs, sha256=d997553b9ebcc27d...  utf8=True ends_at_doc_boundary=True

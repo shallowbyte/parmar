@@ -2,7 +2,8 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
-[![cells verified](https://img.shields.io/badge/matrix%20cells-341%2F341%20round--trip%20verified-brightgreen)](report/summary.md)
+[![cells verified](https://img.shields.io/badge/matrix%20cells-452%2F452%20round--trip%20verified-brightgreen)](report/summary.md)
+[![corpus](https://img.shields.io/badge/corpus-PG--19%20·%2064MB→4GB-informational)](report/summary.md)
 
 A subword-tokenization pre-filter for byte-level entropy coders, plus the
 stress-test harness built to find out whether it actually works.
@@ -129,9 +130,14 @@ ratio shows up as a contradiction rather than being averaged away.
 
 Full tables in `report/summary.md`; plots in `report/ratio_vs_corpus_size.png` and
 `report/ratio_gap_vs_corpus_size.png`. Corpus: PG-19, four tiers (64MB / 256MB / 1GB
-/ 4GB), 10,629 documents. **Every number below comes from a cell whose decompression
-was actually run and whose sha256 actually matched.** Cells that did not verify are
-excluded from comparisons and listed separately in the summary; there were none.
+/ 4GB), 10,629 documents.
+
+**452 matrix cells, 452 round-trip verified, 0 failures — 21.4 hours of measured
+cell time.** Every number below comes from a configuration whose decompression was
+actually executed and whose sha256, byte length and token count all matched. Cells
+that fail verification are excluded from comparisons and listed loudly in their own
+section of the summary; there were none. Chunks cut at a boundary with no
+tokenizer-safe split point: **0**, across all 452 cells.
 
 ### Q1. Does the parmar/raw-backend ratio gap grow with corpus size?
 
@@ -204,18 +210,25 @@ best-ratio configuration at every tier tested.
 
 ### Q3. Does `manual_pool` ever beat `library_batch`?
 
-**Sometimes, by a lot in relative terms — and it does not matter.**
+**No. This is a clean negative result — the hypothesis did not hold.**
 
-`manual_pool` beat `library_batch` in **5 of 8** comparable configurations at 64MB,
-by up to +44%. But tokenization is ~0.7–1.6 s of a ~20 s cell, so the largest
-observed win moves end-to-end throughput by under 3%, and the spread between
-nominally identical `library_batch` runs (0.71 s to 1.24 s for the same work) is the
-same order as the effect being measured.
+Across both tiers where the comparison is available, `manual_pool` beat
+`library_batch` in **exactly 8 of 16** comparable configurations. That is chance.
+Individual deltas swing from −6.8% to +44%, in both directions, with no consistent
+pattern by thread count, chunk size, backend, or corpus size.
 
-**The honest answer is that the hand-rolled pool is not worth its complexity.**
-tiktoken's `encode_ordinary_batch` already releases the GIL and parallelises
-internally; there is no meaningful headroom above it. `process_pool` additionally
-pays Windows spawn cost (~1–2 s and ~100 MB per worker) that the other two do not.
+The swings are large in percentage terms because the quantity being measured is
+small and noisy: tokenization is ~0.7–3.4 s of a cell that takes 20 s to 60 min, and
+two nominally identical `library_batch` runs of the *same work* differ by as much as
+0.71 s vs 1.24 s. The effect being measured is the same order as the measurement
+noise, which is itself the finding.
+
+**Conclusion: the hand-rolled worker pool is not worth its complexity.** tiktoken's
+`encode_ordinary_batch` already releases the GIL and parallelises internally in Rust;
+there is no headroom above it for Python-side coordination to recover. `process_pool`
+additionally pays Windows spawn cost (~1–2 s and ~100 MB per worker) for no return.
+The handoff was right to flag this as an open empirical question rather than a
+settled design choice — and the answer is that the simple option wins.
 
 ### Q4. What is the real `xz -T` speedup curve, and where does the floor kick in?
 
@@ -235,27 +248,41 @@ stream), not the corpus and not the compressed output. Blocks = `fed / (2 x dict
 | 1GB | `r50k+fixed_u16` | `lzma_fast` | 579 MB | **9** | 3.26× | **7.94×** | −1.38% |
 | 1GB | raw | `lzma_fast` | 1025 MB | **16** | 4.10× | **11.76×** | −1.35% |
 
-Three findings:
+At 4GB the block counts grow past the core count, and the constraint changes:
 
-**1. The floor is exact.** Below `2 x dict_size`, xz produces one block, `-T` buys
-nothing (0.99–1.22×), and the ratio is bit-identical across T1/T4/T20 — confirming
-no splitting occurred rather than merely inferring it.
+| tier | pipeline | backend | fed to xz | blocks | T4 | T20 | ratio cost |
+|---|---|---|---|---|---|---|---|
+| 4GB | `r50k+fixed_u16` | `lzma_extreme` | 2315 MB | 18 | 3.96× | 9.43× | −1.29% |
+| 4GB | raw | `lzma_extreme` | 4096 MB | 32 | 3.85× | 10.82× | −1.27% |
+| 4GB | `r50k+fixed_u16` | `lzma_fast` | 2315 MB | 36 | 4.31× | 11.28× | −1.35% |
+| 4GB | raw | `lzma_fast` | 4096 MB | 64 | 3.81× | 11.48× | −1.36% |
 
-**2. Above the floor, T20 speedup tracks the block count almost 1:1** — 5 blocks →
-4.97×, 8 blocks → 7.49×, 9 blocks → 7.94×, 16 blocks → 11.76×. Threads beyond the
-block count do nothing. Useful thread count is `fed_bytes / (2 x dict_size)`.
+**There are three regimes, and `-T` behaves completely differently in each:**
 
-**3. Pre-tokenization has a hidden parallelism cost that nobody had flagged.**
-Because parmar shrinks the compressor's input by ~45%, it also shrinks the block
-count at a fixed block size. On the same 1GB corpus with the same backend, raw bytes
-get 8 blocks and 7.49× speedup while `fixed_u16` gets 5 blocks and 4.97× — parmar
-gives up **~34% of the available multithreaded speedup** in exchange for its ratio
-win. This is a real trade-off, not a bug, and it is invisible at any tier below the
-floor.
+**1. Below the floor (`fed < 2 x dict`) — one block.** `-T` buys nothing (0.99–1.22×)
+and costs nothing. The ratio is bit-identical across T1/T4/T20, which *confirms* no
+splitting occurred rather than merely inferring it. This is the regime the 64MB tier
+sits in, and it is why the original 5 MB experiments saw no multithreading benefit.
 
-The MT ratio cost is **~1.1–1.4% for LZMA** and, notably, **exactly 0.00% for zstd**
-at every level tested — zstd's multithreading does not restart the window between
-jobs the way xz's independent blocks do.
+**2. Blocks < cores — speedup tracks the block count almost 1:1.** At 1GB: 5 blocks →
+4.97×, 8 → 7.49×, 9 → 7.94×, 16 → 11.76×. Threads beyond the block count do nothing.
+
+**3. Blocks > cores — speedup saturates on hardware.** At 4GB, 18 to 64 blocks all
+land at 9.4–11.5× on 20 cores (~50% parallel efficiency). More blocks stop helping.
+
+So useful thread count is approximately **`min(fed_bytes / (2 x dict_size), cores)`**.
+
+**Pre-tokenization has a hidden parallelism cost that had not been flagged.** Because
+parmar shrinks the compressor's input by ~45%, it shrinks the block count at a fixed
+block size. On the same 1GB corpus and backend, raw bytes get 8 blocks and 7.49×
+while `fixed_u16` gets 5 blocks and 4.97× — parmar gives up **~34% of the available
+multithreaded speedup** for its ratio win. At 4GB this disappears, because both are
+past the core-count ceiling anyway. It is a real trade-off in regime 2 only.
+
+The MT ratio cost is **~1.3% for LZMA at every scale** and, notably, **exactly 0.00%
+for zstd** at every level and tier tested — zstd's multithreading does not reset the
+window between jobs the way xz's independent blocks do. If you need multithreading
+without a ratio penalty, that is a concrete reason to prefer zstd over xz here.
 
 ## Corpus
 
