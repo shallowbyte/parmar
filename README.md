@@ -1,19 +1,24 @@
-```
-11111111        111111      11111111      11      11      111111      11111111
-1100000011    11  000011    1100000011    1111  111100  11  000011    1100000011
-1100    1100  1100    1100  1100    1100  110011  1100  1100    1100  1100    1100
-11111111  00  111111111100  11111111  00  1100  001100  111111111100  11111111  00
-1100000000    110000001100  1100111100    1100    1100  110000001100  1100111100
-1100          1100    1100  1100  1111    1100    1100  1100    1100  1100  1111
-1100          1100    1100  1100    1100  1100    1100  1100    1100  1100    1100
-  00            00      00    00      00    00      00    00      00    00      00
-```
+<div align="center">
 
-[![License](https://img.shields.io/badge/license-Apache_2.0-4a3aa7?style=for-the-badge)](LICENSE)
-[![Cells verified](https://img.shields.io/badge/cells_verified-452%2F452-1baf7a?style=for-the-badge)](report/summary.md)
-[![Failures](https://img.shields.io/badge/failures-0-1baf7a?style=for-the-badge)](results/README.md)
-[![Corpus](https://img.shields.io/badge/corpus-PG--19_up_to_4GB-eb6834?style=for-the-badge)](corpus/README.md)
-[![Python](https://img.shields.io/badge/python-3.11%2B-2a78d6?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+<pre>
+0000000     000     0000000   00     00     000     0000000
+0000000    00 00    0000000   000   000    00 00    0000000
+00   00   00   00   00   00   0000 0000   00   00   00   00
+00   00   00   00   00   00   00 000 00   00   00   00   00
+0000000   0000000   0000000   00  0  00   0000000   0000000
+0000000   0000000   00000     00     00   0000000   00000
+00        00   00   00 00     00     00   00   00   00 00
+00        00   00   00  000   00     00   00   00   00  000
+ 11        11   11   11  111   11     11   11   11   11  111
+</pre>
+
+  <a href="LICENSE"><img alt="LICENSE" src="https://img.shields.io/badge/license-Apache_2.0-4a3aa7?style=for-the-badge"></a>
+  <a href="report/summary.md"><img alt="CELLS" src="https://img.shields.io/badge/cells_verified-452%2F452-1baf7a?style=for-the-badge"></a>
+  <a href="results/README.md"><img alt="FAILURES" src="https://img.shields.io/badge/failures-0-1baf7a?style=for-the-badge"></a>
+  <a href="corpus/README.md"><img alt="CORPUS" src="https://img.shields.io/badge/corpus-PG--19_up_to_4GB-eb6834?style=for-the-badge"></a>
+  <a href="https://www.python.org/"><img alt="PYTHON" src="https://img.shields.io/badge/python-3.11%2B-2a78d6?style=for-the-badge&logo=python&logoColor=white"></a>
+
+</div>
 
 A subword-tokenization pre-filter for byte-level entropy coders, plus the
 stress-test harness built to find out whether it actually works.
