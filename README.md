@@ -1,16 +1,13 @@
-<pre>
-███████    ███    ███████  ██     ██    ███    ███████
-███████▓  ██ ██   ███████▓ ███   ███▓  ██ ██   ███████▓
-██   ██▓ ██   ██  ██   ██▓ ████ ████▓ ██   ██  ██   ██▓
-██   ██▓ ██   ██▓ ██   ██▓ ██▓███▓██▓ ██   ██▓ ██   ██▓
-███████▓ ███████▓ ███████▓ ██▓ █▓▓██▓ ███████▓ ███████▓
-███████▓ ███████▓ █████▓▓▓ ██▓  ▓ ██▓ ███████▓ █████▓▓▓
-██▓▓▓▓▓▓ ██▓▓▓██▓ ██▓██▓   ██▓    ██▓ ██▓▓▓██▓ ██▓██▓
-██▓      ██▓  ██▓ ██▓ ███  ██▓    ██▓ ██▓  ██▓ ██▓ ███
- ▓▓       ▓▓   ▓▓  ▓▓  ▓▓▓  ▓▓     ▓▓  ▓▓   ▓▓  ▓▓  ▓▓▓
-</pre>
-
 <div align="center">
+
+<pre>
+█████    ████   █████   █    █   ████   █████ 
+█    █  █    █  █    █  ██  ██  █    █  █    █
+█    █  █    █  █    █  █ ██ █  █    █  █    █
+█████   ██████  █████   █    █  ██████  █████ 
+█       █    █  █   █   █    █  █    █  █   █ 
+█       █    █  █    █  █    █  █    █  █    █
+</pre>
 
   <a href="LICENSE"><img alt="LICENSE" src="https://img.shields.io/badge/license-Apache_2.0-4a3aa7?style=for-the-badge"></a>
   <a href="report/summary.md"><img alt="CELLS" src="https://img.shields.io/badge/cells_verified-452%2F452-1baf7a?style=for-the-badge"></a>
@@ -24,9 +21,7 @@
 <p align="center">
   <b>English</b> ·
   <a href="docs/i18n/README.zh-CN.md">简体中文</a> ·
-  <a href="docs/i18n/README.hi.md">हिन्दी</a> ·
   <a href="docs/i18n/README.es.md">Español</a> ·
-  <a href="docs/i18n/README.ar.md">العربية</a> ·
   <a href="docs/i18n/README.pt-BR.md">Português</a> ·
   <a href="docs/i18n/README.ru.md">Русский</a> ·
   <a href="docs/i18n/README.ja.md">日本語</a> ·
