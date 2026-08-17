@@ -266,10 +266,17 @@ Speedup is wall-clock relative to `-T1`; the percentage beside it is the **ratio
 The `xz -T` block-size floor is 2x the LZMA2 dictionary -- 128MiB for the 64MiB-dict profiles, 64MiB for the 32MiB `lzma_fast` profile. `--block-size` is passed only when threads > 1, so the `-T1` rows are a clean single-block baseline with a full dictionary. Below the floor xz cannot produce more than one block, so `-T` cannot help regardless of the flag -- and correspondingly costs no ratio.
 
 
-## Plots
+## Figures
+
+Each is rendered for a light and a dark surface; the `_dark` variants are the ones the README serves to dark-theme viewers. Every value plotted here is also in the tables above and in `results.csv`, so nothing is encoded by colour alone.
+
+![ratio gap vs corpus size](ratio_gap_vs_corpus_size.png)
 
 ![ratio vs corpus size](ratio_vs_corpus_size.png)
 
+![ratio vs throughput pareto](ratio_vs_throughput_pareto.png)
 
-![ratio gap](ratio_gap_vs_corpus_size.png)
+![thread scaling](thread_scaling.png)
+
+![packing decomposition](packing_decomposition.png)
 

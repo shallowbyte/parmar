@@ -23,6 +23,8 @@ import os
 import sys
 from collections import defaultdict
 
+import plots
+
 TIER_ORDER = ["64MB", "256MB", "1GB", "4GB", "8GB"]
 
 
@@ -83,183 +85,6 @@ def pipeline_label(r):
 
 # --------------------------------------------------------------------------------
 # The plot
-# --------------------------------------------------------------------------------
-
-def make_plot(rows, out_path):
-    try:
-        import matplotlib
-        matplotlib.use("Agg")
-        import matplotlib.pyplot as plt
-    except ImportError:
-        print("matplotlib not installed; skipping the plot (this is the harness's "
-              "single most important output -- pip install matplotlib)",
-              file=sys.stderr)
-        return None
-
-    # Only baseline cells, so the curve is not contaminated by OFAT perturbations.
-    base = [r for r in rows if r.get("cell_kind") == "ratio_grid"]
-    if not base:
-        base = rows
-
-    by_backend = defaultdict(lambda: defaultdict(dict))
-    for r in base:
-        by_backend[r["backend"]][pipeline_label(r)][r["corpus_tier"]] = r["ratio"]
-
-    backends = sorted(by_backend)
-    if not backends:
-        return None
-
-    ncol = 2
-    nrow = (len(backends) + ncol - 1) // ncol
-    fig, axes = plt.subplots(nrow, ncol, figsize=(13, 3.4 * nrow), squeeze=False)
-    cmap = plt.get_cmap("tab10")
-
-    for i, backend in enumerate(backends):
-        ax = axes[i // ncol][i % ncol]
-        series = by_backend[backend]
-        labels = sorted(series, key=lambda s: (s != "raw", s))
-        for j, label in enumerate(labels):
-            pts = series[label]
-            tiers = [t for t in TIER_ORDER if t in pts]
-            if not tiers:
-                continue
-            xs = [tier_bytes(t) / 1024 ** 2 for t in tiers]
-            ys = [pts[t] for t in tiers]
-            is_raw = label == "raw"
-            ax.plot(xs, ys, marker="o" if not is_raw else "s",
-                    linestyle="-" if not is_raw else "--",
-                    linewidth=2.4 if is_raw else 1.7,
-                    color="black" if is_raw else cmap(j % 10),
-                    label=("raw bytes (baseline)" if is_raw else label),
-                    zorder=5 if is_raw else 3)
-        ax.set_xscale("log")
-        ax.set_title(backend, fontsize=11, fontweight="bold")
-        ax.set_xlabel("corpus size (MB, log scale)")
-        ax.set_ylabel("compression ratio")
-        ax.grid(True, alpha=0.3, which="both")
-        ax.legend(fontsize=7, loc="best")
-
-    for k in range(len(backends), nrow * ncol):
-        axes[k // ncol][k % ncol].axis("off")
-
-    fig.suptitle("parmar: compression ratio vs corpus size\n"
-                 "(does the tokenized pipeline pull away from raw bytes as the "
-                 "corpus outgrows the dictionary window?)",
-                 fontsize=13, fontweight="bold")
-    fig.tight_layout(rect=[0, 0, 1, 0.94])
-    fig.savefig(out_path, dpi=140)
-    plt.close(fig)
-    return out_path
-
-
-# Effective match window each backend can see, which is what the window-expansion
-# hypothesis is actually about. zstd's is set by --long, not by the level.
-WINDOW_LABEL = {
-    "gzip_9": "32 KiB",
-    "bz2_9": "900 KiB blk",
-    "lzma_fast": "32 MiB",
-    "lzma_extreme": "64 MiB",
-    "lzma_tuned_lp1pb1": "64 MiB",
-    "zstd_12": "128 MiB",
-    "zstd_19": "128 MiB",
-    "zstd_22_long": "2 GiB",
-}
-WINDOW_BYTES = {
-    "gzip_9": 32 * 1024, "bz2_9": 900 * 1024,
-    "lzma_fast": 32 * 1024 ** 2, "lzma_extreme": 64 * 1024 ** 2,
-    "lzma_tuned_lp1pb1": 64 * 1024 ** 2,
-    "zstd_12": 128 * 1024 ** 2, "zstd_19": 128 * 1024 ** 2,
-    "zstd_22_long": 2 * 1024 ** 3,
-}
-
-
-def make_gap_plot(rows, out_path):
-    """The hypothesis in one figure: relative ratio gap vs corpus size.
-
-    Plotted as a percentage of the raw-backend ratio rather than in absolute ratio
-    points, because absolute ratios rise with corpus size on their own -- an absolute
-    gap can widen while parmar's proportional advantage shrinks.
-
-    Two panels rather than one line per (backend, pipeline): 44 series in a single
-    axes is unreadable, and the interesting comparison is across *backends* (which
-    differ in window size) holding the pipeline fixed. Each panel fixes one pipeline
-    and shows every backend, annotated with that backend's effective match window,
-    which is the quantity the hypothesis is about.
-    """
-    try:
-        import matplotlib
-        matplotlib.use("Agg")
-        import matplotlib.pyplot as plt
-    except ImportError:
-        return None
-
-    base = [r for r in rows if r.get("cell_kind") == "ratio_grid"] or rows
-    raw = {}
-    parmar = defaultdict(dict)
-    for r in base:
-        if r["tokenizer"] == "none":
-            raw[(r["backend"], r["corpus_tier"])] = r["ratio"]
-        else:
-            parmar[(r["backend"], pipeline_label(r))][r["corpus_tier"]] = r["ratio"]
-    for (backend, tier), val in list(raw.items()):
-        if backend == "lzma_extreme" and ("lzma_tuned_lp1pb1", tier) not in raw:
-            raw[("lzma_tuned_lp1pb1", tier)] = val
-
-    panels = [
-        ("p50k_base+fixed_u16", "best pipeline: p50k_base + fixed_u16"),
-        ("o200k_base+leb128", "default pipeline: o200k_base + LEB128"),
-    ]
-    fig, axes = plt.subplots(1, 2, figsize=(15, 6.5), sharey=True)
-    cmap = plt.get_cmap("viridis")
-    backends = sorted(WINDOW_BYTES, key=lambda b: WINDOW_BYTES[b])
-    any_plotted = False
-
-    for ax, (pipeline, title) in zip(axes, panels):
-        for j, backend in enumerate(backends):
-            pts = parmar.get((backend, pipeline))
-            if not pts:
-                continue
-            tiers = [t for t in TIER_ORDER if t in pts and (backend, t) in raw]
-            if len(tiers) < 2:
-                continue
-            xs = [tier_bytes(t) / 1024 ** 2 for t in tiers]
-            ys = [(pts[t] - raw[(backend, t)]) / raw[(backend, t)] * 100
-                  for t in tiers]
-            ax.plot(xs, ys, marker="o", markersize=6, linewidth=2.2,
-                    color=cmap(j / max(len(backends) - 1, 1)),
-                    label=f"{backend}  ({WINDOW_LABEL[backend]})")
-            any_plotted = True
-        ax.axhline(0, color="black", linewidth=1.3, linestyle=":")
-        ax.set_xscale("log")
-        ax.set_xlabel("corpus size (MB, log scale)")
-        ax.set_title(title, fontsize=11, fontweight="bold")
-        ax.grid(True, alpha=0.3, which="both")
-
-    if not any_plotted:
-        plt.close(fig)
-        return None
-
-    axes[0].set_ylabel("ratio gap as % of the raw-backend ratio")
-    handles, labels = axes[0].get_legend_handles_labels()
-    if len(labels) < len(axes[1].get_legend_handles_labels()[1]):
-        handles, labels = axes[1].get_legend_handles_labels()
-    # One shared legend beneath the panels: an in-axes legend covers the very curves
-    # the figure exists to show.
-    fig.legend(handles, labels, loc="lower center", ncol=4, fontsize=9,
-               title="backend (effective match window)", title_fontsize=9,
-               frameon=False, bbox_to_anchor=(0.5, -0.015))
-    fig.suptitle("The central question: does the parmar / raw-bytes gap widen with "
-                 "corpus size?\nrising = window-expansion supported  |  flat = the "
-                 "gain is representation density, not window expansion",
-                 fontsize=13, fontweight="bold")
-    fig.tight_layout(rect=[0, 0.13, 1, 0.90])
-    fig.savefig(out_path, dpi=140)
-    plt.close(fig)
-    return out_path
-
-
-# --------------------------------------------------------------------------------
-# Tables + answers
 # --------------------------------------------------------------------------------
 
 def table(rows, cols, headers=None):
@@ -560,9 +385,9 @@ def main():
         for r in rows:
             w.writerow(r)
 
-    # 3. plots
-    plot_path = make_plot(ok, os.path.join(args.out, "ratio_vs_corpus_size.png"))
-    gap_path = make_gap_plot(ok, os.path.join(args.out, "ratio_gap_vs_corpus_size.png"))
+    # 3. figures -- each rendered for a light and a dark surface, because GitHub
+    #    serves READMEs in both themes.
+    figs = plots.render_all(ok, args.out)
 
     # 2 + 4. markdown
     out = []
@@ -623,10 +448,18 @@ def main():
                    f"tokenizer-safe boundary in the lookahead window; their token "
                    f"streams depend on chunk size.\n")
 
-    if plot_path:
-        out.append(f"\n## Plots\n\n![ratio vs corpus size]({os.path.basename(plot_path)})\n")
-    if gap_path:
-        out.append(f"\n![ratio gap]({os.path.basename(gap_path)})\n")
+    if figs:
+        out.append("\n## Figures\n")
+        out.append("Each is rendered for a light and a dark surface; the `_dark` "
+                   "variants are the ones the README serves to dark-theme "
+                   "viewers. Every value plotted here is also in the tables "
+                   "above and in `results.csv`, so nothing is encoded by colour "
+                   "alone.\n")
+        for f in figs:
+            b = os.path.basename(f)
+            if b.endswith("_dark.png"):
+                continue
+            out.append(f"![{b[:-4].replace('_', ' ')}]({b})\n")
 
     md_path = os.path.join(args.out, "summary.md")
     with open(md_path, "w", encoding="utf-8") as fh:
@@ -634,10 +467,7 @@ def main():
 
     print(f"wrote {csv_path}")
     print(f"wrote {md_path}")
-    if plot_path:
-        print(f"wrote {plot_path}")
-    if gap_path:
-        print(f"wrote {gap_path}")
+
     print(f"\n{len(ok)}/{len(rows)} rows round-trip verified across tiers: "
           f"{', '.join(tiers)}")
     return 0
