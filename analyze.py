@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Analysis deliverables for the parmar sweep (handoff Section 7).
+"""Analysis deliverables for the parmar sweep.
 
 Produces, from whatever results have accumulated so far -- this works on a partial,
 in-progress results set and does not require every tier to have finished:
@@ -10,7 +10,7 @@ in-progress results set and does not require every tier to have finished:
   3. THE PLOT: compression ratio versus corpus size on a log x-axis, one line per
      backend for parmar's pipeline and its raw no-preprocessing baseline. This is
      the direct visual test of whether the ratio gap widens with scale.
-  4. explicit numeric answers to the four questions in Section 7 part 4
+  4. explicit numeric answers to the four questions below
 
 Rows that did not round-trip verify are excluded from every comparison and reported
 loudly in their own section -- a configuration that fails round-trip is itself a
@@ -82,7 +82,7 @@ def pipeline_label(r):
 
 
 # --------------------------------------------------------------------------------
-# The plot (Section 7 item 3)
+# The plot
 # --------------------------------------------------------------------------------
 
 def make_plot(rows, out_path):
@@ -533,7 +533,7 @@ def answer_q4(ok, out):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="parmar analysis (handoff Section 7)")
+    ap = argparse.ArgumentParser(description="parmar analysis")
     ap.add_argument("--results", default="./results/")
     ap.add_argument("--out", default="./report/")
     args = ap.parse_args()
@@ -610,7 +610,7 @@ def main():
              "peak_rss_mb"]))
         out.append("")
 
-    out.append("\n## Section 7 part 4 -- the four questions\n")
+    out.append("\n## The four questions\n")
     answer_q1(ok, out)
     answer_q2(ok, out)
     answer_q3(ok, out)

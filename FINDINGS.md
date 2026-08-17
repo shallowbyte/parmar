@@ -3,13 +3,13 @@
 `parmar.py` and `PARMAR_HANDOFF.md` were written under a no-execution constraint.
 This file records everything that only became visible once the code was executed.
 None of it is a criticism of the earlier work -- it is the expected yield of
-removing that constraint, and the handoff explicitly asked for it.
+removing that constraint, and the design spec explicitly asked for it.
 
 ---
 
-## 1. The dataset instruction cannot be followed as written  (handoff Section 4.1)
+## 1. The dataset instruction cannot be followed as written
 
-The handoff specifies:
+The design spec specifies:
 
 ```python
 datasets.load_dataset("deepmind/pg19", split="train", streaming=True)
@@ -31,7 +31,7 @@ Querying the Hub API shows this cannot work:
 
 **Resolution:** `build_corpus.py` reads the authoritative file list from the repo and
 fetches the books directly from GCS with a bounded, order-preserving thread pool.
-Every Section 4.1 requirement is kept (document-boundary accumulation, per-tier
+Every requirement of the design spec is kept (document-boundary accumulation, per-tier
 checkpoints, recorded sha256/doc-count/byte-count, fixed-seed shuffle) and the
 `datasets` dependency is dropped entirely.
 
@@ -108,11 +108,11 @@ and re-encode round trip).
 
 ---
 
-## 4. THE BIG ONE: chunk-boundary splitting was NOT token-safe  (handoff Sections 2, 3, 8.2)
+## 4. THE BIG ONE: chunk-boundary splitting was NOT token-safe
 
-The handoff asserts, in three places, that cutting at whitespace/punctuation
+The design spec asserts, in three places, that cutting at whitespace/punctuation
 delimiters "produces token-identical output to tokenizing the whole stream at once",
-and Section 8.2 flags that this was never actually verified. It is **false** as
+and the design spec flags that this was never actually verified. It is **false** as
 implemented.
 
 `parmar.py` cut *after* a delimiter (`end = probe + 1`) using
@@ -136,7 +136,7 @@ unsplit  [... 2023,  1983, 842, 117715, ...]      1983  = " and"
 split    [... 2023,  220, 5037, 842, 117715, ...] 220   = " ",  5037 = "and"
 ```
 
-This is precisely the failure mode Section 8.2 predicted -- *"the regex pretoken
+This is precisely the failure mode the design spec predicted -- *"the regex pretoken
 pattern's leading-optional-non-letter-character behavior pulling a byte across what
 looks like a clean split"* -- and it affected **all four tokenizers**, not just
 `o200k_base`.
@@ -195,7 +195,7 @@ is zero at every chunk size and every tokenizer.
   it under `usr\bin`). Tool resolution searches PATH then a list of well-known
   install locations and reports the absolute path it settled on.
 * **The `leb128_selftest` was correct.** The vectorized NumPy pack/unpack that
-  Section 8.3 flagged as never-executed passes 50,000 random values across the full
+  the design spec flagged as never-executed passes 50,000 random values across the full
   21-bit range, all byte-width boundaries, every tokenizer's exact max id,
   random-length arrays, split-stream continuity at every offset, and byte-for-byte
   agreement with the pure-Python fallback. **No bug found** -- the reasoning behind it

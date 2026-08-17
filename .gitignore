@@ -25,3 +25,7 @@ Thumbs.db
 # Transient
 *.bak
 *.tmp
+
+# Internal design/spec documents -- kept locally, not published
+PROMPT.md
+PARMAR_HANDOFF.md

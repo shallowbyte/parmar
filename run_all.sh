@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Sequential driver for the full sweep programme (handoff Section 9 commands 4-6).
+# Sequential driver for the full sweep programme.
 #
 # Every stage is resumable: re-running this script skips cells already done and
 # round-trip verified, so a kill at any point costs at most the cell in flight.
@@ -8,7 +8,7 @@
 #
 #   1. The ratio grid at all four tiers, because the ratio-vs-corpus-size curve is
 #      the central deliverable and says nothing until every tier exists. [DONE]
-#   2. A threads-only OFAT at 1GB and 4GB. Section 7 question 4 asks where the
+#   2. A threads-only OFAT at 1GB and 4GB. the design spec question 4 asks where the
 #      xz -T block-size floor actually kicks in, and the 64MB/256MB data already
 #      answers the below-floor half (payloads of 16-67MB against a 128MiB floor
 #      gave 0.99x-1.22x speedup). The missing half needs a payload ABOVE the floor,

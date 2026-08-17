@@ -135,7 +135,7 @@
 | 26.83 | 3.3722 | r50k_base+fixed_u16 | zstd_12 | subprocess_cli | 4       | 4586        |
 
 
-## Section 7 part 4 -- the four questions
+## The four questions
 
 ### Q1. Does the parmar/raw-backend ratio gap grow with corpus size?
 

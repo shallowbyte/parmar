@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Phase 5: verify every Section 5.1 axis value round-trips, independently.
+"""Phase 5: verify every the design spec axis value round-trips, independently.
 
 Each axis value gets its own compress+decompress with full sha256/length/token-count
 verification against a real slice of the corpus, before it is allowed to consume

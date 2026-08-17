@@ -47,14 +47,14 @@ that check passed.**
 |---|---|
 | `parmar_core.py` | the pipeline: packing schemes, backends, transports, tokenization layouts, archive format, compress/decompress |
 | `parmar.py` | single-pipeline CLI (`compress` / `decompress` / `bench` / `selftest`) |
-| `resources.py` | portable CPU/RAM/disk/tool/library detection (handoff §6) |
-| `build_corpus.py` | PG-19 corpus builder, tiered and resumable (handoff §4) |
-| `verify_boundaries.py` | chunk-boundary differential test (handoff §8.2) — **blocking** |
-| `matrix.py` | cell generation, validity filtering, subprocess-isolated execution, resume (handoff §5) |
+| `resources.py` | portable CPU/RAM/disk/tool/library detection |
+| `build_corpus.py` | PG-19 corpus builder, tiered and resumable |
+| `verify_boundaries.py` | chunk-boundary differential test — **blocking** |
+| `matrix.py` | cell generation, validity filtering, subprocess-isolated execution, resume |
 | `run_cell.py` | one matrix cell, in its own process |
-| `analyze.py` | summary tables + the ratio-vs-corpus-size plot (handoff §7) |
+| `analyze.py` | summary tables + the ratio-vs-corpus-size plot |
 | `test_regressions.py` | regressions for the defects found in the original `parmar.py` |
-| `test_axes.py` | every §5.1 axis value round-trip verified independently |
+| `test_axes.py` | every matrix axis value round-trip verified independently |
 | `FINDINGS.md` | **everything that turned out to be wrong once the code could be run** |
 
 ## Setup
@@ -112,7 +112,7 @@ full drop log without running anything.
 
 ## Matrix shape
 
-Section 5.1's axes as a literal cartesian product give **~8,100 valid cells per
+the design spec's axes as a literal cartesian product give **~8,100 valid cells per
 corpus tier**, which at this machine's measured throughput is weeks per tier. The
 product is split in two:
 
@@ -227,12 +227,12 @@ noise, which is itself the finding.
 `encode_ordinary_batch` already releases the GIL and parallelises internally in Rust;
 there is no headroom above it for Python-side coordination to recover. `process_pool`
 additionally pays Windows spawn cost (~1–2 s and ~100 MB per worker) for no return.
-The handoff was right to flag this as an open empirical question rather than a
+The design spec was right to flag this as an open empirical question rather than a
 settled design choice — and the answer is that the simple option wins.
 
 ### Q4. What is the real `xz -T` speedup curve, and where does the floor kick in?
 
-**The 2x-dictionary floor from handoff §3 is real, and the speedup above it is
+**The 2x-dictionary floor from the design spec is real, and the speedup above it is
 governed by the block count — which pre-tokenization reduces.**
 
 The quantity that matters is the size of the stream *fed to xz* (the packed token

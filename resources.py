@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Portable resource / capability detection for the parmar harness (handoff Section 6).
+"""Portable resource / capability detection for the parmar harness.
 
 Must run unmodified on Kaggle (Linux, cgroup-limited container) and on an arbitrary
 local machine including Windows. Every detection path that falls back to a guess says
 so out loud -- per the project's ground rule that silent fallbacks are bugs.
 
-Judgment calls documented here because the handoff does not specify them:
+Judgment calls documented here because the design spec does not specify them:
 
-* The handoff assumes a POSIX environment (`/proc/meminfo`, `sched_getaffinity`,
+* The design spec assumes a POSIX environment (`/proc/meminfo`, `sched_getaffinity`,
   `nproc`/`free -h`/`df -h` for ground-truth checking). All of those are guarded by
   capability checks rather than assumed, so the module degrades explicitly on Windows
   instead of raising.
@@ -260,13 +260,13 @@ def derive_defaults(cpu, ram, chunk_size):
       + 4 bytes per token, at ~0.26 tokens/byte for o200k on English prose
       + the packed output, ~0.55x chunk_size for LEB128
     which totals ~4.6x chunk_size. Rounded to 5x for headroom, held to 25% of
-    available RAM (handoff Section 6).
+    available RAM.
 
-    The upper clamp of 128 is a judgment call the handoff does not make: past roughly
+    The upper clamp of 128 is a judgment call the design spec does not make: past roughly
     4x the thread count the batch no longer improves thread saturation and only raises
     peak RSS, so on a large-RAM machine the RAM formula alone would pick a batch that
     holds ~1GB of text at once for no throughput gain. The clamp also keeps the
-    0.5x/2x axis values (Section 5.1) in a range that is meaningful to compare.
+    0.5x/2x axis values  in a range that is meaningful to compare.
     """
     per_chunk = int(chunk_size * 5)
     budget = int(ram["available_bytes"] * 0.25)
@@ -304,7 +304,7 @@ def detect(path=".", chunk_size=2 * 1024 * 1024):
 
 
 def max_feasible_tier(info, tier_bytes, multiplier=3.5):
-    """handoff 4.2: require ~3.5x the corpus size in free disk."""
+    """the design spec: require ~3.5x the corpus size in free disk."""
     need = int(tier_bytes * multiplier)
     return info["disk"]["free_bytes"] >= need, need
 
@@ -374,7 +374,7 @@ def print_report(info, stream=sys.stdout):
 
 def main():
     import argparse
-    ap = argparse.ArgumentParser(description="parmar resource detection (handoff Section 6)")
+    ap = argparse.ArgumentParser(description="parmar resource detection")
     ap.add_argument("--path", default=".", help="path whose filesystem to measure")
     ap.add_argument("--json", action="store_true", help="emit raw JSON instead of a report")
     args = ap.parse_args()

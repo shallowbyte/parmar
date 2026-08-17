@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""parmar core pipeline -- generalized over the handoff Section 5.1 matrix axes.
+"""parmar core pipeline -- generalized over the full matrix of axes.
 
 This is `parmar.py`'s architecture kept intact and widened: streaming end-to-end,
 NumPy-vectorized packing with a pure-Python fallback, compressors driven as piped
@@ -24,7 +24,7 @@ execution (the original was written under a no-execution constraint):
    yielded b'\\xef\\xbf\\xbd\\xef\\xbf\\xbd...' instead of the original bytes.
    `enc.decode_bytes(ids)` returns exact bytes and concatenates safely at any split.
 
-Judgment calls the handoff leaves open, documented at their definitions below:
+Judgment calls the design spec leaves open, documented at their definitions below:
 archive format v2 layout, `--block-size` suppression at threads=1, `fixed_u16`
 endianness, and the zstd long-window decode settings.
 """
@@ -144,7 +144,7 @@ BACKENDS = {
         "lzma_fast", "lzma", "fast",
         lzma_filters=_lzma_filters(1 << 25, 3, 0, 0, False),
         xz_opts="preset=6,lc=3,lp=0,pb=0,dict=32MiB", dict_size=1 << 25),
-    # handoff Section 3: lc=1,lp=1,pb=1 is the correct pairing for a genuinely fixed
+    # lc=1,lp=1,pb=1 is the correct pairing for a genuinely fixed
     # 2-byte-per-token stream, by analogy with xz's own UTF-16 recommendation. This
     # has never been tested against real data; the matrix is the first place it is.
     "lzma_tuned_lp1pb1": Backend(
@@ -280,7 +280,7 @@ else:
 
 
 # fixed_u16 is little-endian explicitly ('<u2', not native '=u2'). The archive has to
-# be readable on a big-endian host, and the lp=1/pb=1 alignment tuning the handoff
+# be readable on a big-endian host, and the lp=1/pb=1 alignment tuning the design spec
 # specifies only models a real periodicity if the byte order is fixed by the format
 # rather than by the writer's CPU.
 def fixed_u16_pack(ids):
@@ -385,8 +385,7 @@ def find_safe_boundary(buf, start, limit):
     in o200k/cl100k -- so that cut orphaned the space from its word. Measured against
     the 64MB corpus, o200k_base produced 16,020,945 tokens unsplit but 16,020,999
     split at 1MB, with the first divergence at token 251,996: `" and"` (one token,
-    1983) became `" "` + `"and"` (220, 5037). This is exactly the failure handoff
-    Section 8.2 anticipated -- "the regex pretoken pattern's leading-optional-
+    1983) became `" "` + `"and"` (220, 5037). This is exactly the failure the design spec anticipated -- "the regex pretoken pattern's leading-optional-
     non-letter-character behavior pulling a byte across what looks like a clean
     split" -- and it was never caught because it was never run.
 
@@ -614,7 +613,7 @@ def compressor_argv(backend, threads, tools):
         # split into independent blocks even at -T1 if a block size is given, and
         # each block starts with a fresh dictionary -- that would silently cost ratio
         # on exactly the single-thread cells that exist to be the clean baseline for
-        # the -T speedup curve (handoff Section 3 / Section 7 question 4).
+        # the -T speedup curve.
         if threads > 1:
             argv.append(f"--block-size={xz_block_size_for(b.dict_size, threads)}")
         argv.append(f"--lzma2={b.xz_opts}")
@@ -803,7 +802,7 @@ def parse_header(fh):
 
 
 # --------------------------------------------------------------------------------
-# Self-test / fuzz (handoff Section 8.3)
+# Self-test / fuzz
 # --------------------------------------------------------------------------------
 
 def leb128_selftest(vocab_size):
@@ -822,7 +821,7 @@ def _as_list(x):
 
 def packing_fuzz(packing, n_cases=50_000, seed=0xC0FFEE, vocab_maxes=(),
                  verbose=False):
-    """Property test for a packing scheme (handoff Section 8.3).
+    """Property test for a packing scheme.
 
     Covers, for each of `leb128` and `fixed_u16`:
       * every byte-width boundary value and each tokenizer's exact max id
@@ -934,7 +933,7 @@ def run_fuzz(n_cases=50_000, seed=0xC0FFEE, verbose=True):
 class HashSink:
     """Round-trip verification target that never touches the disk.
 
-    Judgment call: the handoff requires that every configuration's decompression is
+    Judgment call: the design spec requires that every configuration's decompression is
     actually run and its sha256 actually matches, but does not require the bytes be
     kept. Writing them costs one full corpus write per matrix cell (4GB x ~50 cells
     at the top tier) and measures the filesystem rather than the pipeline, so

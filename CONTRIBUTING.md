@@ -78,7 +78,7 @@ python prune_results.py results/sweep_64mb.jsonl \
 
 Match the surrounding code. It is deliberately comment-light: comments are reserved
 for *judgment calls and non-obvious constraints*, not for narrating what the code
-does. If you make a call the handoff spec does not answer, document it inline at the
+does. If you make a call the design spec does not answer, document it inline at the
 definition and say why -- that is exactly what comments are for here.
 
 ## Reporting a negative result

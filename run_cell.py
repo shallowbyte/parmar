@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Execute exactly one matrix cell, in its own process (handoff Section 5.3).
+"""Execute exactly one matrix cell, in its own process.
 
 Invoked by matrix.py as a subprocess so that a crash or OOM in one configuration
 cannot take down the sweep, so peak-RSS is measured against a clean process rather

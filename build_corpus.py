@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""PG-19 corpus builder for the parmar scale sweep (handoff Section 4).
+"""PG-19 corpus builder for the parmar scale sweep.
 
 Dataset: deepmind/pg19 (Apache 2.0). Rae et al. 2019, "Compressive Transformers for
 Long-Range Sequence Modelling", arXiv:1911.05507.
 
 WHY THIS DOES NOT USE `datasets.load_dataset`
 ---------------------------------------------
-The handoff specifies
+The design spec specifies
     datasets.load_dataset("deepmind/pg19", split="train", streaming=True)
 That cannot work as written, which was only discoverable by actually querying the Hub:
 
@@ -67,7 +67,7 @@ TIER_ORDER = ["64MB", "256MB", "1GB", "4GB", "8GB"]
 
 # A single blank line between books. Document boundaries are never split, so each
 # tier file is a complete standalone corpus rather than a prefix of the next one
-# (handoff 4.1 point 3). The separator is counted in the tier's byte budget.
+#. The separator is counted in the tier's byte budget.
 DOC_SEPARATOR = b"\n\n"
 
 
@@ -314,7 +314,7 @@ def cmd_verify(out_dir, tiers):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Build PG-19 corpus tiers (handoff Section 4)")
+    ap = argparse.ArgumentParser(description="Build PG-19 corpus tiers")
     ap.add_argument("--tiers", default="64MB",
                     help="comma-separated tiers: " + ",".join(TIER_ORDER))
     ap.add_argument("--out", default="./corpus/")

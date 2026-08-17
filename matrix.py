@@ -1,32 +1,32 @@
 #!/usr/bin/env python3
-"""parmar stress-test matrix harness (handoff Section 5).
+"""parmar stress-test matrix harness.
 
 Subcommands
   smoke              one config, smallest tier, fast profile -- the pre-flight check
-  verify-leb128      packing property/fuzz test (Section 8.3)
-  verify-boundaries  chunk-boundary differential test (Section 8.2), delegated to
+  verify-leb128      packing property/fuzz test
+  verify-boundaries  chunk-boundary differential test, delegated to
                      verify_boundaries.py so it stays a standalone blocking script
   plan               print the generated cells and the drop log without running
   sweep              run the matrix, resumable
   rerun-cell         re-execute exactly one cell by row id
 
-MATRIX SHAPE -- a documented deviation from the handoff
+MATRIX SHAPE -- a documented deviation from the design spec
 -------------------------------------------------------
-Section 5.1's axes taken as a literal cartesian product give ~8,100 valid cells per
+The full axis list taken as a literal cartesian product give ~8,100 valid cells per
 corpus tier (7 tokenizer/packing pairs x ~7.3 backends x 2 transports x 3 layouts x
 3 chunk sizes x 3 batch sizes x 3 thread counts). At this machine's measured
 throughput that is weeks per tier, so the product is split into two blocks:
 
   ratio grid  Full cross of the axes that determine compression ratio
               (tokenizer x packing x backend), at fixed baseline performance
-              settings. 51 cells. Answers Section 7 questions 1 and 2 and produces
+              settings. 51 cells. Answers questions 1 and 2 below and produces
               the ratio-vs-scale plot, which is the harness's central deliverable.
 
   perf OFAT   One-factor-at-a-time around the same baseline over the axes that
               should only affect speed (threads, layout, transport, chunk size,
               batch size), on representative backends. Answers questions 3 and 4.
 
-The separation rests on the handoff's own claim that chunk size must not affect
+The separation rests on the design spec's own claim that chunk size must not affect
 ratio if boundary-safety holds. That is verified independently by
 verify_boundaries.py rather than assumed, and the OFAT block still records ratio for
 every cell -- so if a performance axis does move ratio, it shows up as a
@@ -225,7 +225,7 @@ def generate_cells(corpus, profile, defaults, tools, libs, include_ofat=True,
     # --- ratio grid -------------------------------------------------------------
     # The full cartesian product is generated and then filtered, rather than only
     # the known-valid pairs being enumerated, so the drop log is real evidence that
-    # the Section 5.2 rules do what they claim -- including catching the case where
+    # the validity rules do what they claim -- including catching the case where
     # they wrongly drop something that should have run.
     for tok in core.TOKENIZERS:
         for pack in ("raw_utf8", "leb128", "fixed_u16"):
@@ -475,7 +475,7 @@ def estimate_sweep(cells, results_dir, corpus, free_bytes):
 
 def print_estimate(est):
     print("-" * 74)
-    print("PRE-FLIGHT ESTIMATE (handoff Section 8.4)")
+    print("PRE-FLIGHT ESTIMATE")
     print(f"  cells to run                 {est['cells']}")
     print(f"  cells with no prior timing   {est['cells_without_prior_data']} "
           f"(excluded from the time estimate)")
@@ -581,9 +581,9 @@ def cmd_verify_boundaries(args):
 def cmd_sweep(args):
     info, corpus = _setup(args)
 
-    # handoff 8.3: re-verify packing before every tier and before every resume,
+    # Re-verify packing before every tier and before every resume,
     # rather than trusting a pass from an earlier process.
-    print("pre-sweep packing property test (handoff 8.3) ...")
+    print("pre-sweep packing property test ...")
     core.run_fuzz(args.fuzz_cases)
     print()
 
@@ -698,7 +698,7 @@ def cmd_rerun_cell(args):
 
 
 def build_parser():
-    p = argparse.ArgumentParser(description="parmar stress-test matrix (handoff §5)")
+    p = argparse.ArgumentParser(description="parmar stress-test matrix")
     sub = p.add_subparsers(dest="cmd", required=True)
 
     def add_common(sp):

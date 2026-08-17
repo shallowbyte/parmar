@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Boundary-safety differential test (handoff Section 8.2). BLOCKING.
+"""Boundary-safety differential test. BLOCKING.
 
 The whole harness rests on one unverified assumption: that splitting the input at
 parmar's chunk boundaries produces the *same token sequence* as tokenizing the stream
@@ -11,7 +11,7 @@ The assumption is plausible because tiktoken's BPE is pretoken-scoped -- the reg
 splits the text into pretokens first and merges never cross a pretoken boundary -- so
 a cut that lands on a pretoken boundary is invisible to the tokenizer. parmar cuts at
 whitespace/punctuation, which *should* always be a pretoken boundary. "Should" is not
-a measurement, and the handoff explicitly notes this was never checked against any
+a measurement, and the design spec explicitly notes this was never checked against any
 tokenizer, and never at all against cl100k_base/r50k_base/p50k_base whose
 pretokenization patterns differ from o200k_base's.
 
@@ -130,7 +130,7 @@ def run_corpus_case(enc, name, data, chunk_size, label, whole=None):
 
 
 ADVERSARIAL = [
-    # Constructs the handoff flags as risky, each repeated long enough that many
+    # Constructs the design spec flags as risky, each repeated long enough that many
     # chunk boundaries land inside it.
     ("long digit run", "1234567890" * 4000),
     ("digits with separators", "12,345,678.90 " * 3000),
@@ -203,7 +203,7 @@ def run_adversarial(enc, name):
 
 def main():
     ap = argparse.ArgumentParser(
-        description="Boundary-safety differential test (handoff Section 8.2)")
+        description="Boundary-safety differential test")
     ap.add_argument("--corpus", required=True)
     ap.add_argument("--tokenizers",
                     default="o200k_base,cl100k_base,r50k_base,p50k_base")
@@ -229,7 +229,7 @@ def main():
     data = data[:core.trim_to_utf8_boundary(data, len(data))]
 
     print("=" * 78)
-    print("Boundary-safety differential test (handoff Section 8.2)")
+    print("Boundary-safety differential test")
     print("=" * 78)
     print(f"corpus      {args.corpus} ({size:,} bytes)")
     print(f"sample      {len(data):,} bytes")
