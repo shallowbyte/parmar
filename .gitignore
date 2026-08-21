@@ -35,3 +35,6 @@ _ascii_title.txt
 # Translation handoff prompts and their structural checker -- local tooling,
 # regenerate with: python _i18n_prompts/build_prompts.py
 _i18n_prompts/
+
+# Locks the translating agent to read+edit only (no shell, so no git)
+opencode.json
