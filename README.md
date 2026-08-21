@@ -21,8 +21,7 @@
   <b>English</b> ·
   <a href="docs/i18n/README.zh-CN.md">简体中文</a> ·
   <a href="docs/i18n/README.es.md">Español</a> ·
-  <a href="docs/i18n/README.pt-BR.md">Português</a> ·
-  <a href="docs/i18n/README.fr.md">Français</a> ·
+  <a href="docs/i18n/README.pt-BR.md">Português</a>
 </p>
 
 A subword-tokenization pre-filter for byte-level entropy coders, plus the
